@@ -1,3 +1,4 @@
+using Evently.Common.Infrastructure.Database;
 using Evently.Modules.Events.Application.Abstractions.Data;
 using Evently.Modules.Events.Domain.Categories;
 using Evently.Modules.Events.Domain.Events;

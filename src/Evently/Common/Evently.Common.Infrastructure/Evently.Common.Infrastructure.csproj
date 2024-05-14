@@ -1,0 +1,11 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <PackageReference Include="EFCore.NamingConventions" Version="8.0.3" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.4" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <ProjectReference Include="..\Evently.Common.Application\Evently.Common.Application.csproj" />
+  </ItemGroup>
+</Project>

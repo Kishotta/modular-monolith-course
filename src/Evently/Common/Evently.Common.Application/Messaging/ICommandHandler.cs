@@ -1,4 +1,7 @@
-namespace Evently.Modules.Events.Application.Abstractions.Messaging;
+using Evently.Common.Domain;
+using MediatR;
+
+namespace Evently.Common.Application.Messaging;
 
 public interface ICommandHandler<in TCommand> : IRequestHandler<TCommand, Result>
     where TCommand : ICommand;

@@ -1,4 +1,6 @@
-namespace Evently.Modules.Events.Application.Abstractions.Exceptions;
+using Evently.Common.Domain;
+
+namespace Evently.Common.Application.Exceptions;
 
 public sealed class EventlyException(
     string requestName,

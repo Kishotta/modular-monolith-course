@@ -1,6 +1,6 @@
 // Global using directives
 
-global using Evently.Modules.Events.Domain.Abstractions;
+global using Evently.Common.Domain;
 global using Evently.Modules.Events.Presentation.ApiResults;
 global using MediatR;
 global using Microsoft.AspNetCore.Builder;

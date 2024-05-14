@@ -1,4 +1,6 @@
 using Dapper;
+using Evently.Common.Application.Data;
+using Evently.Common.Domain;
 using Evently.Modules.Events.Domain.Categories;
 
 namespace Evently.Modules.Events.Application.Categories.GetCategory;

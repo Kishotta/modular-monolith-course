@@ -1,0 +1,30 @@
+services:
+  evently.api:
+    image: ${DOCKER_REGISTRY-}eventlyapi
+    container_name: Evently.Api
+    build:
+      context: .
+      dockerfile: ./Evently.Api/Dockerfile
+    ports:
+      - "5000:8080"
+      - "5001:8081"
+    depends_on:
+      evently.database:
+        condition: service_healthy
+  
+  evently.database:
+    image: postgres:latest
+    container_name: Evently.Database
+    environment:
+      - POSTGRES_DB=evently
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    healthcheck:
+      test: pg_isready -U postgres
+      interval: 5s
+      timeout: 3s
+      retries: 3
+    ports:
+        - "5432:5432"
+    volumes:
+      - ./.containers/db:/var/lib/postgresql/data

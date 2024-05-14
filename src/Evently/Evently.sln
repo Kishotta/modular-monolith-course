@@ -1,0 +1,58 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{CBC776C0-7619-4889-9677-8405EBDE87AE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Api", "Api", "{910F1499-EFC3-42C6-8E75-23DEA3FC48A1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{BF40A5C8-37ED-44EF-92CD-75672546FF7D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Evently.Api", "Evently.Api\Evently.Api.csproj", "{6B9B9877-1915-4CB8-B2D0-E23485CA0286}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Evently.Modules.Events.Domain", "Evently.Modules.Events.Domain\Evently.Modules.Events.Domain.csproj", "{947943ED-ECC6-4387-A8BE-D752604511B0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Events", "Events", "{5918C38D-63BE-4C8D-9C33-F1137E0CD8B1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Evently.Modules.Events.Application", "Evently.Modules.Events.Application\Evently.Modules.Events.Application.csproj", "{03E10F96-E05B-4C71-B0EB-28D2C4751037}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Evently.Modules.Events.Infrastructure", "Evently.Modules.Events.Infrastructure\Evently.Modules.Events.Infrastructure.csproj", "{C458BF60-CDF5-4D61-A000-CE32817CE3F1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Evently.Modules.Events.Presentation", "Evently.Modules.Events.Presentation\Evently.Modules.Events.Presentation.csproj", "{EF1291AC-182B-43DC-92FA-C53F5E03E7D9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{910F1499-EFC3-42C6-8E75-23DEA3FC48A1} = {CBC776C0-7619-4889-9677-8405EBDE87AE}
+		{BF40A5C8-37ED-44EF-92CD-75672546FF7D} = {CBC776C0-7619-4889-9677-8405EBDE87AE}
+		{6B9B9877-1915-4CB8-B2D0-E23485CA0286} = {910F1499-EFC3-42C6-8E75-23DEA3FC48A1}
+		{5918C38D-63BE-4C8D-9C33-F1137E0CD8B1} = {BF40A5C8-37ED-44EF-92CD-75672546FF7D}
+		{947943ED-ECC6-4387-A8BE-D752604511B0} = {5918C38D-63BE-4C8D-9C33-F1137E0CD8B1}
+		{03E10F96-E05B-4C71-B0EB-28D2C4751037} = {5918C38D-63BE-4C8D-9C33-F1137E0CD8B1}
+		{C458BF60-CDF5-4D61-A000-CE32817CE3F1} = {5918C38D-63BE-4C8D-9C33-F1137E0CD8B1}
+		{EF1291AC-182B-43DC-92FA-C53F5E03E7D9} = {5918C38D-63BE-4C8D-9C33-F1137E0CD8B1}
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6B9B9877-1915-4CB8-B2D0-E23485CA0286}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B9B9877-1915-4CB8-B2D0-E23485CA0286}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B9B9877-1915-4CB8-B2D0-E23485CA0286}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B9B9877-1915-4CB8-B2D0-E23485CA0286}.Release|Any CPU.Build.0 = Release|Any CPU
+		{947943ED-ECC6-4387-A8BE-D752604511B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{947943ED-ECC6-4387-A8BE-D752604511B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{947943ED-ECC6-4387-A8BE-D752604511B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{947943ED-ECC6-4387-A8BE-D752604511B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03E10F96-E05B-4C71-B0EB-28D2C4751037}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03E10F96-E05B-4C71-B0EB-28D2C4751037}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03E10F96-E05B-4C71-B0EB-28D2C4751037}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03E10F96-E05B-4C71-B0EB-28D2C4751037}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C458BF60-CDF5-4D61-A000-CE32817CE3F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C458BF60-CDF5-4D61-A000-CE32817CE3F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C458BF60-CDF5-4D61-A000-CE32817CE3F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C458BF60-CDF5-4D61-A000-CE32817CE3F1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF1291AC-182B-43DC-92FA-C53F5E03E7D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF1291AC-182B-43DC-92FA-C53F5E03E7D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF1291AC-182B-43DC-92FA-C53F5E03E7D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF1291AC-182B-43DC-92FA-C53F5E03E7D9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

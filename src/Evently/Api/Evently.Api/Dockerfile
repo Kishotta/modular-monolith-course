@@ -7,7 +7,7 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["Evently.Api/Evently.Api.csproj", "Evently.Api/"]
+COPY ["Api/Evently.Api/Evently.Api.csproj", "Evently.Api/"]
 RUN dotnet restore "Evently.Api/Evently.Api.csproj"
 COPY . .
 WORKDIR "/src/Evently.Api"

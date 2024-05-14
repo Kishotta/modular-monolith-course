@@ -4,7 +4,7 @@ services:
     container_name: Evently.Api
     build:
       context: .
-      dockerfile: ./Evently.Api/Dockerfile
+      dockerfile: ./Api/Evently.Api/Dockerfile
     ports:
       - "5000:8080"
       - "5001:8081"

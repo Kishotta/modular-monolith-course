@@ -15,7 +15,7 @@ public sealed class Event : Entity
     
     private Event() { }
 
-    public static Result<Event> CreateDraft(
+    public static Result<Event> CreateDraft( 
         Category category,
         string title, 
         string description, 
@@ -23,9 +23,6 @@ public sealed class Event : Entity
         DateTime startsAtUtc, 
         DateTime? endsAtUtc)
     {
-        if (startsAtUtc < DateTime.UtcNow)
-            return Result.Failure<Event>(EventErrors.StartDateInPast);
-        
         if (endsAtUtc.HasValue && endsAtUtc < startsAtUtc)
             return Result.Failure<Event>(EventErrors.EndDatePrecedesStartDate);
         
@@ -60,9 +57,6 @@ public sealed class Event : Entity
     
     public Result Reschedule(DateTime startsAtUtc, DateTime? endsAtUtc)
     {
-        if (startsAtUtc < DateTime.UtcNow)
-            return Result.Failure(EventErrors.StartDateInPast);
-        
         if (endsAtUtc.HasValue && endsAtUtc < startsAtUtc)
             return Result.Failure(EventErrors.EndDatePrecedesStartDate);
         

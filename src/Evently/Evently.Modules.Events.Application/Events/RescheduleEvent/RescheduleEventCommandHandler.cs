@@ -1,13 +1,18 @@
+using Evently.Modules.Events.Application.Abstractions.Clock;
 using Evently.Modules.Events.Domain.Events;
 
 namespace Evently.Modules.Events.Application.Events.RescheduleEvent;
 
 internal sealed class RescheduleEventCommandHandler(
+    IDateTimeProvider dateTimeProvider,
     IEventRepository events, 
     IUnitOfWork unitOfWork) : ICommandHandler<RescheduleEventCommand, EventResponse>
 {
     public async Task<Result<EventResponse>> Handle(RescheduleEventCommand request, CancellationToken cancellationToken)
     {
+        if (request.StartsAtUtc < dateTimeProvider.UtcNow)
+            return Result.Failure<EventResponse>(EventErrors.StartDateInPast);
+        
         var @event = await events.GetAsync(request.EventId, cancellationToken);
 
         if (@event is null)

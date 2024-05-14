@@ -1,8 +1,10 @@
+using Evently.Modules.Events.Application.Abstractions.Clock;
 using Evently.Modules.Events.Domain.Events;
 
 namespace Evently.Modules.Events.Application.Events.CancelEvent;
 
 internal sealed class CancelEventCommandHandler(
+    IDateTimeProvider dateTimeProvider,
     IEventRepository events,
     IUnitOfWork unitOfWork)
     : ICommandHandler<CancelEventCommand, EventResponse>
@@ -14,7 +16,7 @@ internal sealed class CancelEventCommandHandler(
         if (@event is null)
             return Result.Failure<EventResponse>(EventErrors.NotFound(request.EventId));
         
-        var result = @event.Cancel(DateTime.UtcNow);
+        var result = @event.Cancel(dateTimeProvider.UtcNow);
 
         if (result.IsFailure)
             return Result.Failure<EventResponse>(result.Error);

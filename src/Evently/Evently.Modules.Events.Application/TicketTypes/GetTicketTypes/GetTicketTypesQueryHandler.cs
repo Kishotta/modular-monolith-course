@@ -1,6 +1,5 @@
 using Dapper;
 using Evently.Common.Application.Data;
-using Evently.Common.Domain;
 
 namespace Evently.Modules.Events.Application.TicketTypes.GetTicketTypes;
 

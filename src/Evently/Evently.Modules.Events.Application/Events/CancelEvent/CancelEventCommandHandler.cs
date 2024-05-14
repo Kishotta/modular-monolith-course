@@ -1,5 +1,4 @@
 using Evently.Common.Application.Clock;
-using Evently.Common.Domain;
 using Evently.Modules.Events.Domain.Events;
 
 namespace Evently.Modules.Events.Application.Events.CancelEvent;

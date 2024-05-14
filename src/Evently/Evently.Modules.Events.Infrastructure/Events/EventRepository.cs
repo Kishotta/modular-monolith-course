@@ -1,6 +1,5 @@
 using Evently.Modules.Events.Domain.Events;
 using Evently.Modules.Events.Infrastructure.Database;
-using Microsoft.EntityFrameworkCore;
 
 namespace Evently.Modules.Events.Infrastructure.Events;
 

@@ -1,6 +1,5 @@
 using Dapper;
 using Evently.Common.Application.Data;
-using Evently.Common.Domain;
 using Evently.Modules.Events.Domain.Events;
 
 namespace Evently.Modules.Events.Application.Events.GetEvent;

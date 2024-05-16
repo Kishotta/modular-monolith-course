@@ -1,6 +1,7 @@
 using Evently.Api.Extensions;
 using Evently.Common.Presentation.Endpoints;
 using Evently.Modules.Events.Infrastructure;
+using Evently.Modules.Ticketing.Infrastructure;
 using Evently.Modules.Users.Infrastructure;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
@@ -12,6 +13,7 @@ builder.AddLogging();
 
 builder.Configuration.AddModuleConfiguration([
     "events",
+    "ticketing",
     "users"
 ]);
 
@@ -25,6 +27,7 @@ builder.Services
         databaseConnectionString, 
         cacheConnectionString,
         Evently.Modules.Events.Application.AssemblyReference.Assembly,
+        Evently.Modules.Ticketing.Application.AssemblyReference.Assembly,
         Evently.Modules.Users.Application.AssemblyReference.Assembly);
 
 
@@ -35,7 +38,8 @@ builder.Services
 
 builder.Services
     .AddEventsModule(builder.Configuration)
-    .AddUsersModule(builder.Configuration);
+    .AddUsersModule(builder.Configuration)
+    .AddTicketingModule(builder.Configuration);
 
 var app = builder.Build();
 

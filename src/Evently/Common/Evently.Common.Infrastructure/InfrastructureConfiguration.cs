@@ -27,14 +27,22 @@ public static class InfrastructureConfiguration
         services.TryAddSingleton<PublishDomainEventsInterceptor>();
 
         services.TryAddSingleton<IDateTimeProvider, DateTimeProvider>();
-        
-        IConnectionMultiplexer connectionMultiplexer = ConnectionMultiplexer.Connect(cacheConnectionString);
-        services.TryAddSingleton(connectionMultiplexer);
 
-        services.AddStackExchangeRedisCache(options =>
+        try
         {
-            options.ConnectionMultiplexerFactory = () => Task.FromResult(connectionMultiplexer);
-        });
+            IConnectionMultiplexer connectionMultiplexer = ConnectionMultiplexer.Connect(cacheConnectionString);
+            services.TryAddSingleton(connectionMultiplexer);
+
+            services.AddStackExchangeRedisCache(options =>
+            {
+                options.ConnectionMultiplexerFactory = () => Task.FromResult(connectionMultiplexer);
+            });
+        }
+        catch
+        {
+            // HACK: Allows application to run without a Redis server. This is useful when, for example, generating a database migration.
+            services.AddDistributedMemoryCache();
+        }
         
         services.TryAddSingleton<ICacheService, CacheService>();
         

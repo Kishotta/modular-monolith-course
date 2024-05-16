@@ -8,13 +8,9 @@ internal class CancelEvent : IEndpoint
     {
         app.MapDelete("events/{id:guid}", async (Guid id, ISender sender) =>
             {
-                var command = new CancelEventCommand(id);
+                var result = await sender.Send(new CancelEventCommand(id));
 
-                var result = await sender.Send(command);
-
-                return result.Match(
-                    Results.NoContent, 
-                    Common.Presentation.ApiResults.ApiResults.Problem);
+                return result.Match(Results.NoContent, ApiResults.Problem);
             })
             .WithName(nameof(CancelEvent))
             .WithTags(Tags.Events);

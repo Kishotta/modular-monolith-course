@@ -8,13 +8,9 @@ internal class GetCategory : IEndpoint
     {
         app.MapGet("categories/{id:guid}", async (Guid id, ISender sender) =>
             {
-                var query = new GetCategoryQuery(id);
+                var result = await sender.Send(new GetCategoryQuery(id));
 
-                var result = await sender.Send(query);
-
-                return result.Match(
-                    Results.Ok,
-                    Common.Presentation.ApiResults.ApiResults.Problem);
+                return result.Match(Results.Ok, ApiResults.Problem);
             })
             .WithName(nameof(GetCategory))
             .WithTags(Tags.Categories)

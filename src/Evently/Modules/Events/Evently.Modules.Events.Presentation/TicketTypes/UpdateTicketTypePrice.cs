@@ -10,7 +10,7 @@ internal class UpdateTicketTypePrice : IEndpoint
             {
                 var result = await sender.Send(new UpdateTicketTypePriceCommand(id, request.Price));
 
-                return result.Match(Results.Ok, Common.Presentation.ApiResults.ApiResults.Problem);
+                return result.Match(Results.Ok, ApiResults.Problem);
             })
             .WithName(nameof(UpdateTicketTypePrice))
             .WithTags(Tags.TicketTypes);

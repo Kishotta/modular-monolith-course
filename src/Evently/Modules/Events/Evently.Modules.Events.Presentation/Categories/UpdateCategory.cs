@@ -8,8 +8,7 @@ internal class UpdateCategory : IEndpoint
     {
         app.MapPut("categories/{id:guid}", async (Guid id, string name, ISender sender) =>
             {
-                var command = new UpdateCategoryCommand(id, name);
-                var result = await sender.Send(command);
+                var result = await sender.Send(new UpdateCategoryCommand(id, name));
 
                 return result.Match(
                     Results.Ok,

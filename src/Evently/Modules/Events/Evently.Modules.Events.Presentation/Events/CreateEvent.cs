@@ -18,9 +18,7 @@ internal class CreateEvent : IEndpoint
 
                 var result = await sender.Send(command);
 
-                return result.Match(
-                    () => Results.Created(result.Value.Id.ToString(), result.Value), 
-                    Common.Presentation.ApiResults.ApiResults.Problem);
+                return result.Match(() => Results.Created(result.Value.Id.ToString(), result.Value), ApiResults.Problem);
             })
             .WithName(nameof(CreateEvent))
             .WithTags(Tags.Events);

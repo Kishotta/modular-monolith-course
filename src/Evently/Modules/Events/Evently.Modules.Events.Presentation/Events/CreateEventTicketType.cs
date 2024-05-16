@@ -15,7 +15,7 @@ internal class CreateEventTicketType : IEndpoint
                     request.Currency,
                     request.Quantity));
 
-                return result.Match(Results.Ok, Common.Presentation.ApiResults.ApiResults.Problem);
+                return result.Match(Results.Ok, ApiResults.Problem);
             })
             .WithName(nameof(CreateEventTicketType))
             .WithTags(Tags.Events);

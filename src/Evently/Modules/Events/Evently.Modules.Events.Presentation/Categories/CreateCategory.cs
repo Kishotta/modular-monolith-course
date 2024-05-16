@@ -8,15 +8,13 @@ internal class CreateCategory : IEndpoint
     {
         app.MapPost("categories", async (Request request, ISender sender, HttpContext context, LinkGenerator linkGenerator) =>
             {
-                var command = new CreateCategoryCommand(request.Name);
-
-                var result = await sender.Send(command);
+                var result = await sender.Send(new CreateCategoryCommand(request.Name));
 
                 return result.Match(
                     () => Results.Created(
                         linkGenerator.GetUriByName(context, nameof(GetCategory), new { id = result.Value.Id }), 
                         result.Value),
-                    Common.Presentation.ApiResults.ApiResults.Problem);
+                    ApiResults.Problem);
             })
             .WithName(nameof(CreateCategory))
             .WithTags(Tags.Categories)

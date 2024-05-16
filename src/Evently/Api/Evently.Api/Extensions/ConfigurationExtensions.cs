@@ -1,4 +1,4 @@
-namespace Evently.Api;
+namespace Evently.Api.Extensions;
 
 internal static class ConfigurationExtensions
 {

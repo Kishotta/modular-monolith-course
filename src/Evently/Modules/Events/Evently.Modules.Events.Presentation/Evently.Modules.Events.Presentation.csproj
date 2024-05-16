@@ -4,9 +4,5 @@
       <ProjectReference Include="..\..\..\Common\Evently.Common.Presentation\Evently.Common.Presentation.csproj" />
       <ProjectReference Include="..\Evently.Modules.Events.Application\Evently.Modules.Events.Application.csproj" />
     </ItemGroup>
-    
-    <ItemGroup>
-      <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.2" />
-    </ItemGroup>
 
 </Project>

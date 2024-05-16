@@ -3,6 +3,7 @@
       <UserSecretsId>de754848-4b23-48e2-a566-e63dc8583e95</UserSecretsId>
     </PropertyGroup>
     <ItemGroup>
+        <PackageReference Include="AspNetCore.HealthChecks.UI.Client" Version="8.0.1" />
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.2"/>
         <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.4">
           <PrivateAssets>all</PrivateAssets>

@@ -4,6 +4,8 @@ using Evently.Api.Middleware;
 using Evently.Common.Application;
 using Evently.Common.Infrastructure;
 using Evently.Modules.Events.Infrastructure;
+using HealthChecks.UI.Client;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,17 +24,25 @@ builder.Services.AddSwaggerGen(options =>
     options.CustomSchemaIds(t => t.FullName?.Replace("+", "."));
 });
 
+var databaseConnectionString = builder.Configuration.GetConnectionString("Database")!;
+var cacheConnectionString = builder.Configuration.GetConnectionString("Cache")!;
+
 builder.Services
     .AddApplication([
         Evently.Modules.Events.Application.AssemblyReference.Assembly
-    ])
+    ]) 
     .AddInfrastructure(
-        builder.Configuration.GetConnectionString("Database")!,
-        builder.Configuration.GetConnectionString("Cache")!);
+        databaseConnectionString,
+        cacheConnectionString);
 
 builder.Configuration.AddModuleConfiguration([
     "events"
 ]);
+
+builder.Services
+    .AddHealthChecks()
+    .AddNpgSql(databaseConnectionString)
+    .AddRedis(cacheConnectionString);
 
 builder.Services.AddEventsModule(builder.Configuration);
 
@@ -48,7 +58,13 @@ if (app.Environment.IsDevelopment())
 
 EventsModule.MapEndpoints(app);
 
+app.MapHealthChecks("health", new HealthCheckOptions
+{
+    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+});
+
 app.UseSerilogRequestLogging();
+
 app.UseExceptionHandler();
 
 await app.RunAsync();

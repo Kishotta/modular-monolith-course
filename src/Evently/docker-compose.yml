@@ -1,4 +1,13 @@
 services:
+  evently.web:
+    image: ${DOCKER_REGISTRY-}eventlyweb
+    container_name: Evently.Web
+    build:
+      context: .
+      dockerfile: ./Web/Evently.Web/Dockerfile
+    ports:
+      - "3000:8080"
+  
   evently.api:
     image: ${DOCKER_REGISTRY-}eventlyapi
     container_name: Evently.Api

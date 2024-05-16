@@ -11,6 +11,8 @@ services:
     depends_on:
       evently.database:
         condition: service_healthy
+      evently.redis:
+        condition: service_healthy
   
   evently.database:
     image: postgres:latest
@@ -42,5 +44,7 @@ services:
     image: redis:latest
     container_name: Evently.Redis
     restart: always
+    healthcheck:
+      test: redis-cli --raw incr ping
     ports:
       - "6379:6379"

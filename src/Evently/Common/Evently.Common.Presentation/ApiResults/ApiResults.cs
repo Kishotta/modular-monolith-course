@@ -1,4 +1,6 @@
-namespace Evently.Modules.Events.Presentation.ApiResults;
+using Microsoft.AspNetCore.Http;
+
+namespace Evently.Common.Presentation.ApiResults;
 
 public static class ApiResults
 {

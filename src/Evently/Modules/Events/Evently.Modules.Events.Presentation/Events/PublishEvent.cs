@@ -10,7 +10,7 @@ internal class PublishEvent : IEndpoint
             {
                 var result = await sender.Send(new PublishEventCommand(id));
 
-                return result.Match(Results.Ok, ApiResults.ApiResults.Problem);
+                return result.Match(Results.Ok, Common.Presentation.ApiResults.ApiResults.Problem);
             })
         .WithName(nameof(PublishEvent))
         .WithTags(Tags.Events);

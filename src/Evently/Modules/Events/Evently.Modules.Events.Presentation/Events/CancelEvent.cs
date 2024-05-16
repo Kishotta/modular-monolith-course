@@ -14,7 +14,7 @@ internal class CancelEvent : IEndpoint
 
                 return result.Match(
                     Results.NoContent, 
-                    ApiResults.ApiResults.Problem);
+                    Common.Presentation.ApiResults.ApiResults.Problem);
             })
             .WithName(nameof(CancelEvent))
             .WithTags(Tags.Events);

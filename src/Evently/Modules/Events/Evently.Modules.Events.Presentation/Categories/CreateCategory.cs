@@ -16,7 +16,7 @@ internal class CreateCategory : IEndpoint
                     () => Results.Created(
                         linkGenerator.GetUriByName(context, nameof(GetCategory), new { id = result.Value.Id }), 
                         result.Value),
-                    ApiResults.ApiResults.Problem);
+                    Common.Presentation.ApiResults.ApiResults.Problem);
             })
             .WithName(nameof(CreateCategory))
             .WithTags(Tags.Categories)

@@ -14,7 +14,7 @@ internal class GetCategory : IEndpoint
 
                 return result.Match(
                     Results.Ok,
-                    ApiResults.ApiResults.Problem);
+                    Common.Presentation.ApiResults.ApiResults.Problem);
             })
             .WithName(nameof(GetCategory))
             .WithTags(Tags.Categories)

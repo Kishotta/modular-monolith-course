@@ -17,7 +17,7 @@ public class SearchEvents : IEndpoint
             var result = await sender.Send(
                 new SearchEventsQuery(categoryId, startDate, endDate, page, pageSize));
 
-            return result.Match(Results.Ok, ApiResults.ApiResults.Problem);
+            return result.Match(Results.Ok, Common.Presentation.ApiResults.ApiResults.Problem);
         })
         .WithName(nameof(SearchEvents))
         .WithTags(Tags.Events);

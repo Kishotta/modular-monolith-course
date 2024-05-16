@@ -20,7 +20,7 @@ internal class CreateEvent : IEndpoint
 
                 return result.Match(
                     () => Results.Created(result.Value.Id.ToString(), result.Value), 
-                    ApiResults.ApiResults.Problem);
+                    Common.Presentation.ApiResults.ApiResults.Problem);
             })
             .WithName(nameof(CreateEvent))
             .WithTags(Tags.Events);

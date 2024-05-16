@@ -11,7 +11,7 @@ internal class ArchiveCategory : IEndpoint
             var result = await sender.Send(new ArchiveCategoryCommand(id));
             return result.Match(
                 Results.Ok,
-                ApiResults.ApiResults.Problem);
+                Common.Presentation.ApiResults.ApiResults.Problem);
         })
         .WithName(nameof(ArchiveCategory))
         .WithTags(Tags.Categories)

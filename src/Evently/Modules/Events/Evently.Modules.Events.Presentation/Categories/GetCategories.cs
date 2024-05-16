@@ -10,7 +10,7 @@ internal class GetCategories : IEndpoint
             {
                 var result = await sender.Send(new GetCategoriesQuery());
 
-                return result.Match(Results.Ok, ApiResults.ApiResults.Problem);
+                return result.Match(Results.Ok, Common.Presentation.ApiResults.ApiResults.Problem);
             })
             .WithName(nameof(GetCategories))
             .WithTags(Tags.Categories)

@@ -10,7 +10,7 @@ internal class GetTicketType : IEndpoint
             {
                 var result = await sender.Send(new GetTicketTypeQuery(id));
 
-                return result.Match(Results.Ok, ApiResults.ApiResults.Problem);
+                return result.Match(Results.Ok, Common.Presentation.ApiResults.ApiResults.Problem);
             })
             .WithName(nameof(GetTicketType))
             .WithTags(Tags.TicketTypes);

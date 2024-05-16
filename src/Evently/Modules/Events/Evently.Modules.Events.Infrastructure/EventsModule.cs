@@ -1,4 +1,5 @@
 using Evently.Common.Infrastructure.Database;
+using Evently.Common.Infrastructure.Outbox;
 using Evently.Common.Presentation.Endpoints;
 using Evently.Modules.Events.Application.Abstractions.Data;
 using Evently.Modules.Events.Domain.Categories;
@@ -31,12 +32,13 @@ public static class EventsModule
     {
         var databaseConnectionString = configuration.GetConnectionString("Database")!;
         
-        services.AddDbContext<EventsDbContext>(options =>
+        services.AddDbContext<EventsDbContext>((serviceProvider, options) =>
         {
             options.UseNpgsql(databaseConnectionString, npgSqlOptions =>
             {
                 npgSqlOptions.MigrationsHistoryTable(HistoryRepository.DefaultTableName, Schemas.Events);
-            }).UseSnakeCaseNamingConvention();
+            }).UseSnakeCaseNamingConvention()
+            .AddInterceptors(serviceProvider.GetRequiredService<PublishDomainEventsInterceptor>());
         });
 
         services.AddScoped<IUnitOfWork>(serviceProvider => serviceProvider.GetRequiredService<EventsDbContext>());

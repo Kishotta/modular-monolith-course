@@ -2,7 +2,7 @@ namespace Evently.Common.Domain;
 
 public abstract class Entity
 {
-    public IReadOnlyCollection<IDomainEvent> DomainEvents => _domainEvents.AsReadOnly();
+    public IReadOnlyCollection<IDomainEvent> GetDomainEvents() => _domainEvents.ToList();
     
     private readonly List<IDomainEvent> _domainEvents = [];
 

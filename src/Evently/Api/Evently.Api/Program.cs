@@ -38,8 +38,10 @@ builder.Services
 
 builder.Services
     .AddEventsModule(builder.Configuration)
-    .AddUsersModule(builder.Configuration)
-    .AddTicketingModule(builder.Configuration);
+    .AddTicketingModule(builder.Configuration)
+    .AddUsersModule(builder.Configuration);
+
+builder.Services.AddOpenApi();
 
 var app = builder.Build();
 

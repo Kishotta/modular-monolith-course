@@ -1,6 +1,5 @@
 using Evently.Common.Application.Messaging;
 using Evently.Common.Domain;
-using Evently.Modules.Ticketing.PublicApi;
 using Evently.Modules.Users.Application.Abstractions.Data;
 using Evently.Modules.Users.Domain.Users;
 

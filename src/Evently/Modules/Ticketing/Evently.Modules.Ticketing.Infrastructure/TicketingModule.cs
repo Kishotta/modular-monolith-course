@@ -6,8 +6,8 @@ using Evently.Modules.Ticketing.Application.Carts;
 using Evently.Modules.Ticketing.Domain.Customers;
 using Evently.Modules.Ticketing.Infrastructure.Customers;
 using Evently.Modules.Ticketing.Infrastructure.Database;
-using Evently.Modules.Ticketing.Infrastructure.PublicApi;
-using Evently.Modules.Ticketing.PublicApi;
+using Evently.Modules.Ticketing.Presentation.Customers;
+using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.Extensions.Configuration;
@@ -25,6 +25,11 @@ public static class TicketingModule
         services.AddInfrastructure(configuration);
         
         return services;
+    }
+
+    public static void ConfigureConsumers(IRegistrationConfigurator registrationConfigurator)
+    {
+        registrationConfigurator.AddConsumer<UserRegisteredIntegrationEventConsumer>();
     }
     
     private static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
@@ -47,8 +52,6 @@ public static class TicketingModule
         services.AddScoped<IUnitOfWork>(serviceProvider => serviceProvider.GetRequiredService<TicketingDbContext>());
 
         services.AddSingleton<CartService>();
-
-        services.AddScoped<ITicketingApi, TicketingApi>();
         
         return services;
     }

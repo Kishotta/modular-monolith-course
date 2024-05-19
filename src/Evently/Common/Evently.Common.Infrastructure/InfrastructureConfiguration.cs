@@ -1,10 +1,12 @@
 using Evently.Common.Application.Caching;
 using Evently.Common.Application.Clock;
 using Evently.Common.Application.Data;
+using Evently.Common.Application.EventBus;
 using Evently.Common.Infrastructure.Caching;
 using Evently.Common.Infrastructure.Clock;
 using Evently.Common.Infrastructure.Data;
 using Evently.Common.Infrastructure.Outbox;
+using MassTransit;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Npgsql;
@@ -16,6 +18,7 @@ public static class InfrastructureConfiguration
 {
     public static IServiceCollection AddInfrastructure(
         this IServiceCollection services,
+        Action<IRegistrationConfigurator>[] moduleConfigureConsumers,
         string databaseConnectionString,
         string cacheConnectionString)
     {
@@ -45,6 +48,21 @@ public static class InfrastructureConfiguration
         }
         
         services.TryAddSingleton<ICacheService, CacheService>();
+        services.TryAddSingleton<IEventBus, EventBus.EventBus>();
+
+        services.AddMassTransit(configurator =>
+        {
+            foreach (var configureConsumer in moduleConfigureConsumers)
+            {
+                configureConsumer(configurator);
+            }
+            
+            configurator.SetKebabCaseEndpointNameFormatter();
+            configurator.UsingInMemory((context, config) =>
+            {
+                config.ConfigureEndpoints(context);
+            });
+        });
         
         return services;
     }

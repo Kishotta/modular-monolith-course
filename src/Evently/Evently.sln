@@ -52,11 +52,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{E8B8A8B8-F8B
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Evently.Web", "Web\Evently.Web\Evently.Web.csproj", "{2D30B9CA-E59D-4A8D-88AB-C072FB811048}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Evently.Modules.Users.PublicApi", "Modules\Users\Evently.Modules.Users.PublicApi\Evently.Modules.Users.PublicApi.csproj", "{F08DF456-3362-4C2C-9EB4-C0EC19C2EABE}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Evently.Modules.Events.PublicApi", "Modules\Events\Evently.Modules.Events.PublicApi\Evently.Modules.Events.PublicApi.csproj", "{000D04CC-40DF-48B2-9A80-904473320527}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Evently.Modules.Ticketing.PublicApi", "Modules\Ticketing\Evently.Modules.Ticketing.PublicApi\Evently.Modules.Ticketing.PublicApi.csproj", "{4772FAF8-709A-44DF-9167-1EA51111EC66}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Evently.Modules.Users.IntegrationEvents", "Modules\Users\Evently.Modules.Users.IntegrationEvents\Evently.Modules.Users.IntegrationEvents.csproj", "{DCC5E461-A739-4DD6-B906-BE6CE61A3EEB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -89,9 +87,8 @@ Global
 		{B2AD8179-0587-4D39-980E-B1E47EAE592A} = {8A00D266-25F3-41F8-845E-9BE9DCB0D27B}
 		{E8B8A8B8-F8B9-4464-8D73-41E58863DFDE} = {CBC776C0-7619-4889-9677-8405EBDE87AE}
 		{2D30B9CA-E59D-4A8D-88AB-C072FB811048} = {E8B8A8B8-F8B9-4464-8D73-41E58863DFDE}
-		{F08DF456-3362-4C2C-9EB4-C0EC19C2EABE} = {45DAA2B4-3B8C-444C-9374-285095804D51}
 		{000D04CC-40DF-48B2-9A80-904473320527} = {5918C38D-63BE-4C8D-9C33-F1137E0CD8B1}
-		{4772FAF8-709A-44DF-9167-1EA51111EC66} = {8A00D266-25F3-41F8-845E-9BE9DCB0D27B}
+		{DCC5E461-A739-4DD6-B906-BE6CE61A3EEB} = {45DAA2B4-3B8C-444C-9374-285095804D51}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{6B9B9877-1915-4CB8-B2D0-E23485CA0286}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -166,17 +163,13 @@ Global
 		{2D30B9CA-E59D-4A8D-88AB-C072FB811048}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2D30B9CA-E59D-4A8D-88AB-C072FB811048}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2D30B9CA-E59D-4A8D-88AB-C072FB811048}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F08DF456-3362-4C2C-9EB4-C0EC19C2EABE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F08DF456-3362-4C2C-9EB4-C0EC19C2EABE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F08DF456-3362-4C2C-9EB4-C0EC19C2EABE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F08DF456-3362-4C2C-9EB4-C0EC19C2EABE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{000D04CC-40DF-48B2-9A80-904473320527}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{000D04CC-40DF-48B2-9A80-904473320527}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{000D04CC-40DF-48B2-9A80-904473320527}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{000D04CC-40DF-48B2-9A80-904473320527}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4772FAF8-709A-44DF-9167-1EA51111EC66}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4772FAF8-709A-44DF-9167-1EA51111EC66}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4772FAF8-709A-44DF-9167-1EA51111EC66}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4772FAF8-709A-44DF-9167-1EA51111EC66}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DCC5E461-A739-4DD6-B906-BE6CE61A3EEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DCC5E461-A739-4DD6-B906-BE6CE61A3EEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DCC5E461-A739-4DD6-B906-BE6CE61A3EEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DCC5E461-A739-4DD6-B906-BE6CE61A3EEB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

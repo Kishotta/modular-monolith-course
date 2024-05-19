@@ -5,6 +5,7 @@
     
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.2"/>
+        <PackageReference Include="MassTransit.Abstractions" Version="8.2.2" />
     </ItemGroup>
     
     <ItemGroup>

@@ -1,8 +1,5 @@
 using Evently.Api.Extensions;
 using Evently.Common.Presentation.Endpoints;
-using Evently.Modules.Events.Infrastructure;
-using Evently.Modules.Ticketing.Infrastructure;
-using Evently.Modules.Users.Infrastructure;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Serilog;
@@ -24,22 +21,15 @@ builder.Services
     .AddExceptionHandling()
     .AddOpenApi()
     .AddModules(
-        databaseConnectionString, 
-        cacheConnectionString,
-        Evently.Modules.Events.Application.AssemblyReference.Assembly,
-        Evently.Modules.Ticketing.Application.AssemblyReference.Assembly,
-        Evently.Modules.Users.Application.AssemblyReference.Assembly);
+        builder.Configuration,
+        databaseConnectionString,
+        cacheConnectionString);
 
 
 builder.Services
     .AddHealthChecks()
     .AddNpgSql(databaseConnectionString)
     .AddRedis(cacheConnectionString);
-
-builder.Services
-    .AddEventsModule(builder.Configuration)
-    .AddTicketingModule(builder.Configuration)
-    .AddUsersModule(builder.Configuration);
 
 builder.Services.AddOpenApi();
 

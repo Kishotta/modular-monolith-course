@@ -2,7 +2,7 @@ using Evently.Common.Application.Messaging;
 using Evently.Common.Domain;
 using Evently.Modules.Events.PublicApi;
 using Evently.Modules.Ticketing.Domain.Customers;
-using Evently.Modules.Ticketing.Domain.TicketTypes;
+using Evently.Modules.Ticketing.Domain.Events;
 
 namespace Evently.Modules.Ticketing.Application.Carts.AddItemToCart;
 

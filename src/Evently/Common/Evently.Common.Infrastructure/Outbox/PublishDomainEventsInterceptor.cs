@@ -6,7 +6,8 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Evently.Common.Infrastructure.Outbox;
 
-public sealed class PublishDomainEventsInterceptor(IServiceScopeFactory serviceScopeFactory) : SaveChangesInterceptor
+public sealed class PublishDomainEventsInterceptor(IServiceScopeFactory serviceScopeFactory) 
+    : SaveChangesInterceptor
 {
     public override async ValueTask<int> SavedChangesAsync(
         SaveChangesCompletedEventData eventData, 

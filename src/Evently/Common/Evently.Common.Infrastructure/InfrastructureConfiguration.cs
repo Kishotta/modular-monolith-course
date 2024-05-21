@@ -2,6 +2,7 @@ using Evently.Common.Application.Caching;
 using Evently.Common.Application.Clock;
 using Evently.Common.Application.Data;
 using Evently.Common.Application.EventBus;
+using Evently.Common.Infrastructure.Auditing;
 using Evently.Common.Infrastructure.Caching;
 using Evently.Common.Infrastructure.Clock;
 using Evently.Common.Infrastructure.Data;
@@ -28,6 +29,7 @@ public static class InfrastructureConfiguration
         services.AddScoped<IDbConnectionFactory, DbConnectionFactory>();
         
         services.TryAddSingleton<PublishDomainEventsInterceptor>();
+        services.TryAddSingleton<WriteAuditLogInterceptor>();
 
         services.TryAddSingleton<IDateTimeProvider, DateTimeProvider>();
 

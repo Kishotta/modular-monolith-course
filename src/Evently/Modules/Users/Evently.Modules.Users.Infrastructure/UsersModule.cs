@@ -1,3 +1,4 @@
+using Evently.Common.Infrastructure.Auditing;
 using Evently.Common.Infrastructure.Database;
 using Evently.Common.Infrastructure.Outbox;
 using Evently.Common.Presentation.Endpoints;
@@ -35,7 +36,9 @@ public static class UsersModule
                 {
                     npgSqlOptions.MigrationsHistoryTable(HistoryRepository.DefaultTableName, Schemas.Events);
                 }).UseSnakeCaseNamingConvention()
-                .AddInterceptors(serviceProvider.GetRequiredService<PublishDomainEventsInterceptor>());
+                .AddInterceptors(
+                    serviceProvider.GetRequiredService<PublishDomainEventsInterceptor>(),
+                    serviceProvider.GetRequiredService<WriteAuditLogInterceptor>());
         });
 
         services.AddScoped<IUnitOfWork>(serviceProvider => serviceProvider.GetRequiredService<UsersDbContext>());

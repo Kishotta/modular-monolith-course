@@ -2,6 +2,7 @@ using Evently.Common.Domain;
 
 namespace Evently.Modules.Users.Domain.Users;
 
+[Auditable]
 public sealed class User : Entity
 {
     public Guid Id { get; private set; }

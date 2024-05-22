@@ -1,5 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using Sample.Common.Infrastructure;
 
 namespace Evently.Common.Infrastructure.Auditing;
 

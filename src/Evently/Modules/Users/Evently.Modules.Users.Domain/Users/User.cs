@@ -1,4 +1,5 @@
 using Evently.Common.Domain;
+using Evently.Common.Domain.Auditing;
 
 namespace Evently.Modules.Users.Domain.Users;
 

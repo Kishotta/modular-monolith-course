@@ -1,4 +1,4 @@
-using Evently.Common.Domain;
+using Evently.Common.Domain.Auditing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 

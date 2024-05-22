@@ -1,6 +1,6 @@
 using System.Reflection;
 
-namespace Sample.Common.Infrastructure;
+namespace Evently.Common.Infrastructure;
 
 public static class AssemblyReference
 {

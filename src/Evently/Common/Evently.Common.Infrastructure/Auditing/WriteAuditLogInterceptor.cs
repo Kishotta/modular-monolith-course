@@ -39,9 +39,14 @@ public sealed class WriteAuditLogInterceptor(IAuditUserProvider auditUserProvide
         {
             if (!entry.ShouldBeAudited()) continue;
             
+            var tableName = context
+                .Model
+                .FindEntityType(entry.Entity.GetType())
+                ?.GetTableName() ?? "Unknown Table";
+            
             var auditEntry = new AuditEntry(
                 entry,
-                entry.Entity.GetType().Name,
+                tableName,
                 userId);
             
             auditEntries.Add(auditEntry);

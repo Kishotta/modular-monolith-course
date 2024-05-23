@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace Evently.Common.Infrastructure.Auditing;
 
-public sealed class WriteAuditLogInterceptor(IAuditUserProvider auditUserProvider)
+public sealed class WriteAuditLogInterceptor(IAuditingUserProvider auditingUserProvider)
     : SaveChangesInterceptor
 {
     public override async ValueTask<InterceptionResult<int>> SavingChangesAsync(
@@ -32,7 +32,7 @@ public sealed class WriteAuditLogInterceptor(IAuditUserProvider auditUserProvide
     
     private IEnumerable<Audit> CreateAudits(DbContext context)
     {
-        var userId = auditUserProvider.GetUserId();
+        var userId = auditingUserProvider.GetUserId();
         var auditEntries = new List<AuditEntry>();
         
         foreach (var entry in context.ChangeTracker.Entries<Entity>())

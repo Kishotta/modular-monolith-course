@@ -1,6 +1,6 @@
 namespace Evently.Common.Infrastructure.Auditing;
 
-public interface IAuditUserProvider
+public interface IAuditingUserProvider
 {
     string GetUserId();
 }

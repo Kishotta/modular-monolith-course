@@ -1,6 +1,4 @@
-using Evently.Api;
 using Evently.Api.Extensions;
-using Evently.Common.Infrastructure.Auditing;
 using Evently.Common.Presentation.Endpoints;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
@@ -27,15 +25,12 @@ builder.Services
         databaseConnectionString,
         cacheConnectionString);
 
-
 builder.Services
     .AddHealthChecks()
     .AddNpgSql(databaseConnectionString)
     .AddRedis(cacheConnectionString);
 
 builder.Services.AddOpenApi();
-builder.Services.AddHttpContextAccessor();
-builder.Services.AddSingleton<IAuditUserProvider, UserProvider>();
 
 var app = builder.Build();
 
@@ -57,5 +52,9 @@ app.MapHealthChecks("health", new HealthCheckOptions
 app.UseSerilogRequestLogging();
 
 app.UseExceptionHandler();
+
+app.UseAuthentication();
+
+app.UseAuthorization();
 
 await app.RunAsync();

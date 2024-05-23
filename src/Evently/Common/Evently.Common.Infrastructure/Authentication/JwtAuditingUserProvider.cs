@@ -1,9 +1,10 @@
 using System.Security.Claims;
 using Evently.Common.Infrastructure.Auditing;
+using Microsoft.AspNetCore.Http;
 
-namespace Evently.Api;
+namespace Evently.Common.Infrastructure.Authentication;
 
-public class UserProvider(IHttpContextAccessor httpContextAccessor) : IAuditUserProvider
+public class JwtAuditingUserProvider(IHttpContextAccessor httpContextAccessor) : IAuditingUserProvider
 {
     public string GetUserId()
     {

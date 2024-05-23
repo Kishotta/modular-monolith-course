@@ -16,6 +16,7 @@ internal class CreateCategory : IEndpoint
                         result.Value),
                     ApiResults.Problem);
             })
+            .RequireAuthorization()
             .WithName(nameof(CreateCategory))
             .WithTags(Tags.Categories)
             .WithOpenApi(operation => new OpenApiOperation(operation)

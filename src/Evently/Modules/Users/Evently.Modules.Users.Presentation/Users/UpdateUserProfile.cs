@@ -14,7 +14,9 @@ internal sealed class UpdateUserProfile : IEndpoint
                     request.LastName));
 
                 return result.Match(Results.Ok, ApiResults.Problem);
-            }).WithName(nameof(UpdateUserCommand))
+            })
+            .RequireAuthorization()
+            .WithName(nameof(UpdateUserCommand))
             .WithTags(Tags.Users);
     }
 

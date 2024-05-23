@@ -12,6 +12,7 @@ public class GetTicketTypes : IEndpoint
 
                 return result.Match(Results.Ok, ApiResults.Problem);
             })
+            .RequireAuthorization()
             .WithName(nameof(GetTicketTypes))
             .WithTags(Tags.TicketTypes);
     }

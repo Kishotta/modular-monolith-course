@@ -12,6 +12,7 @@ internal class UpdateTicketTypePrice : IEndpoint
 
                 return result.Match(Results.Ok, ApiResults.Problem);
             })
+            .RequireAuthorization()
             .WithName(nameof(UpdateTicketTypePrice))
             .WithTags(Tags.TicketTypes);
     }

@@ -12,6 +12,7 @@ internal class GetCategory : IEndpoint
 
                 return result.Match(Results.Ok, ApiResults.Problem);
             })
+            .RequireAuthorization()
             .WithName(nameof(GetCategory))
             .WithTags(Tags.Categories)
             .WithOpenApi(operation => new OpenApiOperation(operation)

@@ -17,6 +17,7 @@ internal class CreateTicketType : IEndpoint
 
                 return result.Match(Results.Ok, ApiResults.Problem);
             })
+            .RequireAuthorization()
             .WithName(nameof(CreateTicketType))
             .WithTags(Tags.TicketTypes);
     }

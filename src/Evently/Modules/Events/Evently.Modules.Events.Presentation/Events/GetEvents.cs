@@ -12,6 +12,7 @@ internal class GetEvents : IEndpoint
 
             return result.Match(Results.Ok, ApiResults.Problem);
         })
+        .RequireAuthorization()
         .WithName(nameof(GetEvents))
         .WithTags(Tags.Events);
     }

@@ -12,7 +12,8 @@ internal class PublishEvent : IEndpoint
 
                 return result.Match(Results.Ok, ApiResults.Problem);
             })
-        .WithName(nameof(PublishEvent))
-        .WithTags(Tags.Events);
+            .RequireAuthorization()
+            .WithName(nameof(PublishEvent))
+            .WithTags(Tags.Events);
     }
 }

@@ -20,6 +20,7 @@ internal class CreateEvent : IEndpoint
 
                 return result.Match(() => Results.Created(result.Value.Id.ToString(), result.Value), ApiResults.Problem);
             })
+            .RequireAuthorization()
             .WithName(nameof(CreateEvent))
             .WithTags(Tags.Events);
     }

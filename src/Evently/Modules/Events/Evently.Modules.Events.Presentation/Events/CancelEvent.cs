@@ -12,6 +12,7 @@ internal class CancelEvent : IEndpoint
 
                 return result.Match(Results.NoContent, ApiResults.Problem);
             })
+            .RequireAuthorization()
             .WithName(nameof(CancelEvent))
             .WithTags(Tags.Events);
     }

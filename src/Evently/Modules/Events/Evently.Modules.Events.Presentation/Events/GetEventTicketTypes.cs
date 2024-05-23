@@ -12,6 +12,7 @@ internal class GetEventTicketTypes : IEndpoint
 
                 return result.Match(Results.Ok, ApiResults.Problem);
             })
+            .RequireAuthorization()
             .WithName(nameof(GetEventTicketTypes))
             .WithTags(Tags.Events);
     }

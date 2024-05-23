@@ -12,6 +12,7 @@ internal class RescheduleEvent : IEndpoint
 
             return result.Match(Results.Ok, ApiResults.Problem);
         })
+        .RequireAuthorization()
         .WithName(nameof(RescheduleEvent))
         .WithTags(Tags.Events);
     }

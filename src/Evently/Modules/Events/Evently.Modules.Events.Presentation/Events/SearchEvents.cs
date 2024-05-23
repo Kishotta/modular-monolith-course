@@ -18,6 +18,7 @@ public class SearchEvents : IEndpoint
 
             return result.Match(Results.Ok, ApiResults.Problem);
         })
+        .RequireAuthorization()
         .WithName(nameof(SearchEvents))
         .WithTags(Tags.Events);
     }

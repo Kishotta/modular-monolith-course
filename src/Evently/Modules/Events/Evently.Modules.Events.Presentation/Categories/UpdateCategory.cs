@@ -14,6 +14,7 @@ internal class UpdateCategory : IEndpoint
                     Results.Ok,
                     Common.Presentation.ApiResults.ApiResults.Problem);
             })
+            .RequireAuthorization()
             .WithName(nameof(UpdateCategory))
             .WithTags(Tags.Categories)
             .WithOpenApi(operation => new OpenApiOperation(operation)

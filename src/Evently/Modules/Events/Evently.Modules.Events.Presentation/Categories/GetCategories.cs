@@ -20,5 +20,6 @@ internal class GetCategories : IEndpoint
                 Summary = "Get Categories",
                 Description = "Get all categories",
             });
+
     }
 }

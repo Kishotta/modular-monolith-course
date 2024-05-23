@@ -1,5 +1,3 @@
-using Evently.Common.Application.Messaging;
-
 namespace Evently.Modules.Ticketing.Application.Customers.CreateCustomer;
 
 public sealed record CreateCustomerCommand(

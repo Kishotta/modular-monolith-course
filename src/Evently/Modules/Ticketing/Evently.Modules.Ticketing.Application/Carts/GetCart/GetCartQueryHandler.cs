@@ -1,6 +1,3 @@
-using Evently.Common.Application.Messaging;
-using Evently.Common.Domain;
-
 namespace Evently.Modules.Ticketing.Application.Carts.GetCart;
 
 internal sealed class GetCartQueryHandler(CartService cartService) 

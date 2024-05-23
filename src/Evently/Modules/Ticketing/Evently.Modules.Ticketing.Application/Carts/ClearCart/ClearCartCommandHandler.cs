@@ -1,5 +1,3 @@
-using Evently.Common.Application.Messaging;
-using Evently.Common.Domain;
 using Evently.Modules.Ticketing.Domain.Customers;
 
 namespace Evently.Modules.Ticketing.Application.Carts.ClearCart;

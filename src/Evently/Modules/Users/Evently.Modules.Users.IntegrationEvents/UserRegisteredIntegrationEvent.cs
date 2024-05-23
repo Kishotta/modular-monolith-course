@@ -24,3 +24,23 @@ public sealed class UserRegisteredIntegrationEvent : IntegrationEvent
         LastName = lastName;
     }
 }
+
+public sealed class UserProfileUpdatedIntegrationEvent : IntegrationEvent
+{
+    public Guid UserId { get; init; }
+    public string FirstName { get; init; }
+    public string LastName { get; init; }
+    
+    public UserProfileUpdatedIntegrationEvent(
+        Guid id, 
+        DateTime occuredAtUtc,
+        Guid userId,
+        string firstName,
+        string lastName) 
+        : base(id, occuredAtUtc)
+    {
+        UserId = userId;
+        FirstName = firstName;
+        LastName = lastName;
+    }
+}

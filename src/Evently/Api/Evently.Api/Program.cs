@@ -25,10 +25,13 @@ builder.Services
         databaseConnectionString,
         cacheConnectionString);
 
+var keycloakHealthUrl = builder.Configuration.GetValue<string>("KeyCloak:HealthUrl")!;
+
 builder.Services
     .AddHealthChecks()
     .AddNpgSql(databaseConnectionString)
-    .AddRedis(cacheConnectionString);
+    .AddRedis(cacheConnectionString)
+    .AddUrlGroup(new Uri(keycloakHealthUrl), HttpMethod.Get, "Keycloak");
 
 builder.Services.AddOpenApi();
 

@@ -22,10 +22,10 @@ jobs:
         dotnet-version: 8.0.x
     - name: Restore dependencies
       working-directory: ./src/Evently
-      run: dotnet restore
+      run: dotnet restore "Evently.sln"
     - name: Build
       working-directory: ./src/Evently
-      run: dotnet build --no-restore
+      run: dotnet build --no-restore "Evently.sln"
     - name: Test
       working-directory: ./src/Evently
-      run: dotnet test --no-build --verbosity normal
+      run: dotnet test --no-build --verbosity normal "Evently.sln"

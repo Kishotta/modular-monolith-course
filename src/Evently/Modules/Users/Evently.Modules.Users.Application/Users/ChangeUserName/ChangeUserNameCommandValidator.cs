@@ -2,7 +2,7 @@ using FluentValidation;
 
 namespace Evently.Modules.Users.Application.Users.ChangeUserName;
 
-public class ChangeUserNameCommandValidator : AbstractValidator<ChangeUserNameCommand>
+internal sealed class ChangeUserNameCommandValidator : AbstractValidator<ChangeUserNameCommand>
 {
     public ChangeUserNameCommandValidator()
     {

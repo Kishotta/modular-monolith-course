@@ -7,7 +7,7 @@ using MediatR;
 
 namespace Evently.Modules.Users.Application.Users.RegisterUser;
 
-public class UserRegisteredDomainEventHandler(
+internal sealed class UserRegisteredDomainEventHandler(
     ISender sender,
     IEventBus eventBus) 
     : IDomainEventHandler<UserRegisteredDomainEvent>

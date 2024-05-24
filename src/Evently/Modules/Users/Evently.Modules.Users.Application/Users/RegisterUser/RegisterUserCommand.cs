@@ -1,6 +1,6 @@
 namespace Evently.Modules.Users.Application.Users.RegisterUser;
 
-public record RegisterUserCommand(
+public sealed record RegisterUserCommand(
     string Email,
     string Password,
     string FirstName,

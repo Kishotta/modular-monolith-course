@@ -2,7 +2,7 @@ using FluentValidation;
 
 namespace Evently.Modules.Users.Application.Users.RegisterUser;
 
-public class RegisterUserCommandValidator : AbstractValidator<RegisterUserCommand>
+internal sealed class RegisterUserCommandValidator : AbstractValidator<RegisterUserCommand>
 {
     public RegisterUserCommandValidator()
     {

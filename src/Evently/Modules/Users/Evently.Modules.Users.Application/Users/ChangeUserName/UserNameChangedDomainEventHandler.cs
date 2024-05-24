@@ -4,7 +4,7 @@ using Evently.Modules.Users.IntegrationEvents;
 
 namespace Evently.Modules.Users.Application.Users.ChangeUserName;
 
-public class UserNameChangedDomainEventHandler (
+internal sealed class UserNameChangedDomainEventHandler (
     IEventBus eventBus)
     : IDomainEventHandler<UserNameChangedDomainEvent>
 {

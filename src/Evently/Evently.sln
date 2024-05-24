@@ -72,6 +72,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{1334D7DA-E
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Evently.Architecture.Tests", "test\Evently.Architecture.Tests\Evently.Architecture.Tests.csproj", "{B74D56C2-CA95-4838-AC45-5345910FF88A}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{8D9EDED0-1CE1-44CD-A92B-870C3343FA9E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Evently.Modules.Users.Architecture.Tests", "Modules\Users\test\Evently.Modules.Users.Architecture.Tests\Evently.Modules.Users.Architecture.Tests.csproj", "{934305D4-1317-4073-9FAA-090CA8F1A17B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -112,6 +116,8 @@ Global
 		{92C69840-8C1A-459A-A1A5-7BCBEF158A31} = {F642188A-51BD-4CB0-A50F-FD1029E5FD30}
 		{62A2852B-D920-4A63-AC87-733D1BF914D7} = {F642188A-51BD-4CB0-A50F-FD1029E5FD30}
 		{B74D56C2-CA95-4838-AC45-5345910FF88A} = {1334D7DA-E2EF-42A4-A52E-968AA920F0A0}
+		{8D9EDED0-1CE1-44CD-A92B-870C3343FA9E} = {45DAA2B4-3B8C-444C-9374-285095804D51}
+		{934305D4-1317-4073-9FAA-090CA8F1A17B} = {8D9EDED0-1CE1-44CD-A92B-870C3343FA9E}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{6B9B9877-1915-4CB8-B2D0-E23485CA0286}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -218,5 +224,9 @@ Global
 		{B74D56C2-CA95-4838-AC45-5345910FF88A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B74D56C2-CA95-4838-AC45-5345910FF88A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B74D56C2-CA95-4838-AC45-5345910FF88A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{934305D4-1317-4073-9FAA-090CA8F1A17B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{934305D4-1317-4073-9FAA-090CA8F1A17B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{934305D4-1317-4073-9FAA-090CA8F1A17B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{934305D4-1317-4073-9FAA-090CA8F1A17B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

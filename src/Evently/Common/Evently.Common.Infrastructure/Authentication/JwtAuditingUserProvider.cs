@@ -1,4 +1,5 @@
 using System.Security.Claims;
+using Evently.Common.Application.Exceptions;
 using Evently.Common.Infrastructure.Auditing;
 using Microsoft.AspNetCore.Http;
 
@@ -8,6 +9,13 @@ public class JwtAuditingUserProvider(IHttpContextAccessor httpContextAccessor) :
 {
     public string GetUserId()
     {
-        return httpContextAccessor.HttpContext?.User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "Unknown User";
+        try
+        {
+            return httpContextAccessor.HttpContext?.User.GetUserId().ToString()!;
+        }
+        catch (EventlyException)
+        {
+            return "Unknown User";
+        }
     }
 }

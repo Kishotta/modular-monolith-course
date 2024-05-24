@@ -1,5 +1,4 @@
 using Evently.Common.Application.EventBus;
-using Evently.Common.Application.Messaging;
 using Evently.Modules.Users.Domain.Users;
 using Evently.Modules.Users.IntegrationEvents;
 

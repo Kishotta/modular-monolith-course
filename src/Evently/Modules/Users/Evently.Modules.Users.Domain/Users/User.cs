@@ -11,6 +11,9 @@ public sealed class User : Entity
     public string FirstName { get; private set; } = string.Empty;
     public string LastName { get; private set; } = string.Empty;
     public string IdentityId { get; private set; } = string.Empty;
+    public IReadOnlyCollection<Role> Roles => _roles.AsReadOnly();
+    
+    private readonly List<Role> _roles = [];
     
     private User() { }
     
@@ -28,6 +31,8 @@ public sealed class User : Entity
             LastName = lastName,
             IdentityId = identityId
         };
+        
+        user._roles.Add(Role.Member);
         
         user.RaiseDomainEvent(new UserRegisteredDomainEvent(user.Id));
 

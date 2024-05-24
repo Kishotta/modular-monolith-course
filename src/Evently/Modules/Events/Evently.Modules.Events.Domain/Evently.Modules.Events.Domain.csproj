@@ -2,4 +2,10 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\Common\Evently.Common.Domain\Evently.Common.Domain.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <PackageReference Update="SonarAnalyzer.CSharp" Version="9.25.1.91650">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
 </Project>

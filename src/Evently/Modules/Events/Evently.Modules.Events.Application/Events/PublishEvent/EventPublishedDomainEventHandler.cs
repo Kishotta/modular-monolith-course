@@ -23,7 +23,20 @@ internal sealed class EventPublishedDomainEventHandler(
                 notification.Id,
                 notification.OccuredAtUtc,
                 result.Value.Id,
-                result.Value.Title), 
+                result.Value.Title,
+                result.Value.Description,
+                result.Value.Location,
+                result.Value.StartsAtUtc,
+                result.Value.EndsAtUtc,
+                result.Value.TicketTypes.Select(ticketType => new TicketTypeModel
+                {
+                    Id = ticketType.TicketTypeId,
+                    EventId = result.Value.Id,
+                    Name = ticketType.Name,
+                    Price = ticketType.Price,
+                    Currency = ticketType.Currency,
+                    Quantity = ticketType.Quantity
+                }).ToList()), 
             cancellationToken);
     }
 }

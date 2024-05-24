@@ -1,4 +1,3 @@
-using Evently.Common.Domain;
 using Evently.Modules.Ticketing.Domain.Orders;
 
 namespace Evently.Modules.Ticketing.Domain.Payments;

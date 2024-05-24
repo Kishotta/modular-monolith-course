@@ -1,5 +1,3 @@
-using Evently.Common.Domain;
-
 namespace Evently.Modules.Ticketing.Domain.Customers;
 
 public sealed class Customer : Entity

@@ -39,14 +39,14 @@ public sealed class User : Entity
         return user;
     }
     
-    public void Update(string firstName, string lastName)
+    public void ChangeName(string firstName, string lastName)
     {
         if (FirstName == firstName && LastName == lastName) return;
         
         FirstName = firstName;
         LastName = lastName;
         
-        RaiseDomainEvent(new UserProfileUpdatedDomainEvent(Id, FirstName, LastName));
+        RaiseDomainEvent(new UserNameChangedDomainEvent(Id, FirstName, LastName));
     }
     
 }

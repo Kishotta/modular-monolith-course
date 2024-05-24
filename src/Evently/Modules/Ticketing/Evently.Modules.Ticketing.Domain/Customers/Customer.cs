@@ -2,25 +2,33 @@ namespace Evently.Modules.Ticketing.Domain.Customers;
 
 public sealed class Customer : Entity
 {
-    public Guid Id { get; private set; }
+    public Guid Id { get; private init; }
     public string Email { get; private set; } = string.Empty;
     public string FirstName { get; private set; } = string.Empty;
     public string LastName { get; private set; } = string.Empty;
     
     private Customer() { }
 
-    public static Customer Create(Guid id, string email, string firstName, string lastName) =>
-        new()
+    public static Customer Create(Guid id, string email, string firstName, string lastName)
+    {
+        var customer = new Customer
         {
             Id = id,
             Email = email,
             FirstName = firstName,
             LastName = lastName
         };
+        
+        customer.RaiseDomainEvent(new CustomerCreatedDomainEvent(customer.Id));
 
-    public void Update(string firstName, string lastName)
+        return customer;
+    }
+
+    public void ChangeName(string firstName, string lastName)
     {
         FirstName = firstName;
         LastName = lastName;
+        
+        RaiseDomainEvent(new CustomerNameChangedDomainEvent(Id, FirstName, LastName));
     }
 }

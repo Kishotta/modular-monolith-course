@@ -2,7 +2,7 @@ using Evently.Common.Domain;
 
 namespace Evently.Modules.Users.Domain.Users;
 
-public class UserProfileUpdatedDomainEvent(
+public class UserNameChangedDomainEvent(
     Guid userId, 
     string firstName,
     string lastName) : DomainEvent

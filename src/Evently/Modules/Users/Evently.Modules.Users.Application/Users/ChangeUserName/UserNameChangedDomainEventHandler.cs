@@ -2,13 +2,13 @@ using Evently.Common.Application.EventBus;
 using Evently.Modules.Users.Domain.Users;
 using Evently.Modules.Users.IntegrationEvents;
 
-namespace Evently.Modules.Users.Application.Users.UpdateUser;
+namespace Evently.Modules.Users.Application.Users.ChangeUserName;
 
-public class UserProfileUpdatedDomainEventHandler (
+public class UserNameChangedDomainEventHandler (
     IEventBus eventBus)
-    : IDomainEventHandler<UserProfileUpdatedDomainEvent>
+    : IDomainEventHandler<UserNameChangedDomainEvent>
 {
-    public async Task Handle(UserProfileUpdatedDomainEvent notification, CancellationToken cancellationToken)
+    public async Task Handle(UserNameChangedDomainEvent notification, CancellationToken cancellationToken)
     {
         await eventBus.PublishAsync(
             new UserProfileUpdatedIntegrationEvent(

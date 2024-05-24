@@ -1,5 +1,5 @@
 using Evently.Common.Application.Exceptions;
-using Evently.Modules.Ticketing.Application.Customers.UpdateCustomer;
+using Evently.Modules.Ticketing.Application.Customers.ChangeCustomerName;
 using Evently.Modules.Users.IntegrationEvents;
 using MassTransit;
 
@@ -11,13 +11,13 @@ public class UserProfileUpdatedIntegrationEventConsumer(ISender sender)
     public async Task Consume(ConsumeContext<UserProfileUpdatedIntegrationEvent> context)
     {
         var result = await sender.Send(
-            new UpdateCustomerCommand(
+            new ChangeCustomerNameCommand(
                 context.Message.UserId,
                 context.Message.FirstName,
                 context.Message.LastName), 
             context.CancellationToken);
 
         if (result.IsFailure)
-            throw new EventlyException(nameof(UpdateCustomerCommand), result.Error);
+            throw new EventlyException(nameof(ChangeCustomerNameCommand), result.Error);
     }
 }

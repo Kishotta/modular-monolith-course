@@ -1,10 +1,10 @@
 using FluentValidation;
 
-namespace Evently.Modules.Users.Application.Users.UpdateUser;
+namespace Evently.Modules.Users.Application.Users.ChangeUserName;
 
-public class UpdateUserCommandValidator : AbstractValidator<UpdateUserCommand>
+public class ChangeUserNameCommandValidator : AbstractValidator<ChangeUserNameCommand>
 {
-    public UpdateUserCommandValidator()
+    public ChangeUserNameCommandValidator()
     {
         RuleFor(command => command.UserId).NotEmpty();
         RuleFor(command => command.FirstName).NotEmpty();

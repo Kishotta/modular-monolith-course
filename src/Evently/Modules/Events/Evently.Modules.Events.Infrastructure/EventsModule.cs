@@ -1,6 +1,4 @@
-using Evently.Common.Infrastructure.Auditing;
 using Evently.Common.Infrastructure.Database;
-using Evently.Common.Infrastructure.Outbox;
 using Evently.Common.Presentation.Endpoints;
 using Evently.Modules.Events.Application.Abstractions.Data;
 using Evently.Modules.Events.Domain.Categories;
@@ -10,7 +8,6 @@ using Evently.Modules.Events.Infrastructure.Categories;
 using Evently.Modules.Events.Infrastructure.Database;
 using Evently.Modules.Events.Infrastructure.Events;
 using Evently.Modules.Events.Infrastructure.TicketTypes;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -18,37 +15,18 @@ namespace Evently.Modules.Events.Infrastructure;
 
 public static class EventsModule
 {
-    public static IServiceCollection AddEventsModule(
-        this IServiceCollection services,
-        IConfiguration configuration)
-    {
-        services.AddEndpoints(Presentation.AssemblyReference.Assembly);
-        services.AddInfrastructure(configuration);
-        
-        return services;
-    }
+    public static IServiceCollection AddEventsModule(this IServiceCollection services, IConfiguration configuration) =>
+        services
+            .AddEndpoints(Presentation.AssemblyReference.Assembly)
+            .AddInfrastructure(configuration);
 
-    private static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
-    {
-        var databaseConnectionString = configuration.GetConnectionString("Database")!;
-        
-        services.AddDbContext<EventsDbContext>((serviceProvider, options) =>
-        {
-            options.UseNpgsql(databaseConnectionString, npgSqlOptions =>
-            {
-                npgSqlOptions.MigrationsHistoryTable(HistoryRepository.DefaultTableName, Schemas.Events);
-            }).UseSnakeCaseNamingConvention()
-            .AddInterceptors(
-                serviceProvider.GetRequiredService<PublishDomainEventsInterceptor>(),
-                serviceProvider.GetRequiredService<WriteAuditLogInterceptor>());
-        });
+    private static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration) =>
+        services
+            .AddDbContext<EventsDbContext>(Postgres.StandardOptions(configuration, Schemas.Events))
+            .AddScoped<IUnitOfWork>(serviceProvider => serviceProvider.GetRequiredService<EventsDbContext>())
+            .AddScoped<IEventRepository, EventRepository>()
+            .AddScoped<ICategoryRepository, CategoryRepository>()
+            .AddScoped<ITicketTypeRepository, TicketTypeRepository>();
 
-        services.AddScoped<IUnitOfWork>(serviceProvider => serviceProvider.GetRequiredService<EventsDbContext>());
-        
-        services.AddScoped<IEventRepository, EventRepository>();
-        services.AddScoped<ICategoryRepository, CategoryRepository>();
-        services.AddScoped<ITicketTypeRepository, TicketTypeRepository>();
-
-        return services;
-    }
+    
 }

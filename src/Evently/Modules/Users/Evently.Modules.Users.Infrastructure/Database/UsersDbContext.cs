@@ -1,6 +1,4 @@
-using Evently.Common.Infrastructure.Auditing;
 using Evently.Common.Infrastructure.Database;
-using Evently.Modules.Users.Application;
 using Evently.Modules.Users.Application.Abstractions.Data;
 using Evently.Modules.Users.Domain.Users;
 using Microsoft.EntityFrameworkCore;

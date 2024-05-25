@@ -8,40 +8,33 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Evently.Modules.Users.Infrastructure.Database.Migrations
 {
     /// <inheritdoc />
-    public partial class AddUserRolesAndPermissions : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AlterColumn<string>(
-                name: "last_name",
-                schema: "users",
-                table: "users",
-                type: "character varying(200)",
-                maxLength: 200,
-                nullable: false,
-                oldClrType: typeof(string),
-                oldType: "text");
+            migrationBuilder.EnsureSchema(
+                name: "users");
 
-            migrationBuilder.AlterColumn<string>(
-                name: "first_name",
+            migrationBuilder.CreateTable(
+                name: "audit_logs",
                 schema: "users",
-                table: "users",
-                type: "character varying(200)",
-                maxLength: 200,
-                nullable: false,
-                oldClrType: typeof(string),
-                oldType: "text");
-
-            migrationBuilder.AlterColumn<string>(
-                name: "email",
-                schema: "users",
-                table: "users",
-                type: "character varying(300)",
-                maxLength: 300,
-                nullable: false,
-                oldClrType: typeof(string),
-                oldType: "text");
+                columns: table => new
+                {
+                    id = table.Column<Guid>(type: "uuid", nullable: false),
+                    user_id = table.Column<string>(type: "text", nullable: false),
+                    type = table.Column<string>(type: "text", nullable: false),
+                    table_name = table.Column<string>(type: "text", nullable: false),
+                    occured_at_utc = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    primary_key = table.Column<string>(type: "text", nullable: false),
+                    old_values = table.Column<string>(type: "text", nullable: true),
+                    new_values = table.Column<string>(type: "text", nullable: true),
+                    affected_columns = table.Column<string>(type: "text", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_audit_logs", x => x.id);
+                });
 
             migrationBuilder.CreateTable(
                 name: "permissions",
@@ -65,6 +58,22 @@ namespace Evently.Modules.Users.Infrastructure.Database.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("pk_roles", x => x.name);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "users",
+                schema: "users",
+                columns: table => new
+                {
+                    id = table.Column<Guid>(type: "uuid", nullable: false),
+                    email = table.Column<string>(type: "character varying(300)", maxLength: 300, nullable: false),
+                    first_name = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
+                    last_name = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
+                    identity_id = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_users", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
@@ -190,6 +199,18 @@ namespace Evently.Modules.Users.Infrastructure.Database.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "ix_role_permissions_role_name",
+                schema: "users",
+                table: "role_permissions",
+                column: "role_name");
+
+            migrationBuilder.CreateIndex(
+                name: "ix_user_roles_user_id",
+                schema: "users",
+                table: "user_roles",
+                column: "user_id");
+
+            migrationBuilder.CreateIndex(
                 name: "ix_users_email",
                 schema: "users",
                 table: "users",
@@ -202,23 +223,15 @@ namespace Evently.Modules.Users.Infrastructure.Database.Migrations
                 table: "users",
                 column: "identity_id",
                 unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "ix_role_permissions_role_name",
-                schema: "users",
-                table: "role_permissions",
-                column: "role_name");
-
-            migrationBuilder.CreateIndex(
-                name: "ix_user_roles_user_id",
-                schema: "users",
-                table: "user_roles",
-                column: "user_id");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "audit_logs",
+                schema: "users");
+
             migrationBuilder.DropTable(
                 name: "role_permissions",
                 schema: "users");
@@ -235,45 +248,9 @@ namespace Evently.Modules.Users.Infrastructure.Database.Migrations
                 name: "roles",
                 schema: "users");
 
-            migrationBuilder.DropIndex(
-                name: "ix_users_email",
-                schema: "users",
-                table: "users");
-
-            migrationBuilder.DropIndex(
-                name: "ix_users_identity_id",
-                schema: "users",
-                table: "users");
-
-            migrationBuilder.AlterColumn<string>(
-                name: "last_name",
-                schema: "users",
-                table: "users",
-                type: "text",
-                nullable: false,
-                oldClrType: typeof(string),
-                oldType: "character varying(200)",
-                oldMaxLength: 200);
-
-            migrationBuilder.AlterColumn<string>(
-                name: "first_name",
-                schema: "users",
-                table: "users",
-                type: "text",
-                nullable: false,
-                oldClrType: typeof(string),
-                oldType: "character varying(200)",
-                oldMaxLength: 200);
-
-            migrationBuilder.AlterColumn<string>(
-                name: "email",
-                schema: "users",
-                table: "users",
-                type: "text",
-                nullable: false,
-                oldClrType: typeof(string),
-                oldType: "character varying(300)",
-                oldMaxLength: 300);
+            migrationBuilder.DropTable(
+                name: "users",
+                schema: "users");
         }
     }
 }

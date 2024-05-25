@@ -1,5 +1,8 @@
+using Evently.Common.Domain.Auditing;
+
 namespace Evently.Modules.Events.Domain.Categories;
 
+[Auditable]
 public class Category : Entity
 {
     public Guid Id { get; private set; }

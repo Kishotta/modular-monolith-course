@@ -1,7 +1,9 @@
+using Evently.Common.Domain.Auditing;
 using Evently.Modules.Events.Domain.Categories;
 
 namespace Evently.Modules.Events.Domain.Events;
 
+[Auditable]
 public sealed class Event : Entity
 {
     public Guid Id { get; private set; }

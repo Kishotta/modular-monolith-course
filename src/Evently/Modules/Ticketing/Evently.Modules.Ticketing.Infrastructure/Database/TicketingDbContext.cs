@@ -13,7 +13,7 @@ using Microsoft.EntityFrameworkCore.Storage;
 namespace Evently.Modules.Ticketing.Infrastructure.Database;
 
 public sealed class TicketingDbContext(DbContextOptions<TicketingDbContext> options) 
-    : AuditableDbContext<TicketingDbContext>(options), IUnitOfWork
+    : DbContext(options), IUnitOfWork
 {
     internal DbSet<Customer> Customers => Set<Customer>();
     internal DbSet<Event> Events => Set<Event>();
@@ -26,6 +26,8 @@ public sealed class TicketingDbContext(DbContextOptions<TicketingDbContext> opti
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.HasDefaultSchema(Schemas.Ticketing);
+        
+        modelBuilder.ApplyConfigurationsFromAssembly(Common.Infrastructure.AssemblyReference.Assembly);
         modelBuilder.ApplyConfigurationsFromAssembly(AssemblyReference.Assembly);
     }
     

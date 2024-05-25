@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Evently.Modules.Users.Infrastructure.Database;
 
 public class UsersDbContext(DbContextOptions<UsersDbContext> options)
-    : AuditableDbContext<UsersDbContext>(options), IUnitOfWork
+    : DbContext(options), IUnitOfWork
 {
     internal DbSet<User> Users => Set<User>();
 
@@ -16,6 +16,7 @@ public class UsersDbContext(DbContextOptions<UsersDbContext> options)
     {
         modelBuilder.HasDefaultSchema(Schemas.Users);
 
+        modelBuilder.ApplyConfigurationsFromAssembly(Common.Infrastructure.AssemblyReference.Assembly);
         modelBuilder.ApplyConfigurationsFromAssembly(AssemblyReference.Assembly);
     }
 }

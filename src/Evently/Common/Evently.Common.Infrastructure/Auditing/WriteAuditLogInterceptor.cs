@@ -18,8 +18,6 @@ public sealed class WriteAuditLogInterceptor(IAuditingUserProvider auditingUserP
         
         return await base.SavingChangesAsync(eventData, result, cancellationToken);
     }
-
-   
     
     private async Task WriteAuditLog(
         DbContext context, 

@@ -17,6 +17,7 @@ public class EventsDbContext(DbContextOptions<EventsDbContext> options)
     {
         modelBuilder.HasDefaultSchema(Schemas.Events);
 
+        modelBuilder.ApplyConfigurationsFromAssembly(Common.Infrastructure.AssemblyReference.Assembly);
         modelBuilder.ApplyConfigurationsFromAssembly(AssemblyReference.Assembly);
     }
 }

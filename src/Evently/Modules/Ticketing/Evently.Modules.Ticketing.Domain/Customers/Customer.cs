@@ -1,5 +1,8 @@
+using Evently.Common.Domain.Auditing;
+
 namespace Evently.Modules.Ticketing.Domain.Customers;
 
+[Auditable]
 public sealed class Customer : Entity
 {
     public Guid Id { get; private init; }

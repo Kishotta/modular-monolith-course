@@ -1,13 +1,13 @@
 using System.Reflection;
 using Evently.Common.ModuleArchitecture.Tests;
-using Evently.Modules.Users.Domain.Users;
+using Evently.Modules.Ticketing.Domain.Orders;
 
-namespace Evently.Modules.Users.Architecture.Tests;
+namespace Evently.Modules.Ticketing.Architecture.Tests;
 
 public class LayerTests : CommonLayerTests
 {
     private static readonly Assembly ApplicationAssembly = Application.AssemblyReference.Assembly;
-    private static readonly Assembly DomainAssembly = typeof(User).Assembly;
+    private static readonly Assembly DomainAssembly = typeof(Order).Assembly;
     private static readonly Assembly InfrastructureAssembly = Infrastructure.AssemblyReference.Assembly;
     private static readonly Assembly PresentationAssembly = Presentation.AssemblyReference.Assembly;
     

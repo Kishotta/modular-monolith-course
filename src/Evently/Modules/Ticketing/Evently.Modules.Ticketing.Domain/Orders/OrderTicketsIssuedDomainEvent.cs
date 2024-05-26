@@ -1,6 +1,6 @@
 namespace Evently.Modules.Ticketing.Domain.Orders;
 
-public class OrderTicketsIssuedDomainEvents(Guid orderId) : DomainEvent
+public sealed class OrderTicketsIssuedDomainEvent(Guid orderId) : DomainEvent
 {
     public Guid OrderId { get; } = orderId;
 }

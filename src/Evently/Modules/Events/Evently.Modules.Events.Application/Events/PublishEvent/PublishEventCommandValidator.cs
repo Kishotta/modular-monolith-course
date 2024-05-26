@@ -2,7 +2,7 @@ using FluentValidation;
 
 namespace Evently.Modules.Events.Application.Events.PublishEvent;
 
-public class PublishEventCommandValidator : AbstractValidator<PublishEventCommand>
+internal sealed class PublishEventCommandValidator : AbstractValidator<PublishEventCommand>
 {
     public PublishEventCommandValidator()
     {

@@ -50,7 +50,7 @@ public sealed class Order : Entity
 
         TicketsIssued = true;
         
-        RaiseDomainEvent(new OrderTicketsIssuedDomainEvents(Id));
+        RaiseDomainEvent(new OrderTicketsIssuedDomainEvent(Id));
 
         return Result.Success();
     }

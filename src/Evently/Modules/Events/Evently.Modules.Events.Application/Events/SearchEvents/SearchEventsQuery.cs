@@ -1,6 +1,6 @@
 namespace Evently.Modules.Events.Application.Events.SearchEvents;
 
-public record SearchEventsQuery(
+public sealed record SearchEventsQuery(
     Guid? CategoryId, 
     DateTime? StartDate, 
     DateTime? EndDate, 

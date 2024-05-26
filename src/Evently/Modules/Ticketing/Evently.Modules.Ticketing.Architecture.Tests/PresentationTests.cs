@@ -1,7 +1,7 @@
 using System.Reflection;
 using Evently.Common.ModuleArchitecture.Tests;
 
-namespace Evently.Modules.Users.Architecture.Tests;
+namespace Evently.Modules.Ticketing.Architecture.Tests;
 
 public class PresentationTests : CommonPresentationTests
 {

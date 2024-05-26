@@ -11,7 +11,9 @@
 
     <ItemGroup>
         <PackageReference Include="coverlet.collector" Version="6.0.0"/>
+        <PackageReference Include="FluentAssertions" Version="6.12.0" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0"/>
+        <PackageReference Include="NetArchTest.Rules" Version="1.3.2" />
         <PackageReference Include="xunit" Version="2.5.3"/>
         <PackageReference Include="xunit.runner.visualstudio" Version="2.5.3"/>
     </ItemGroup>
@@ -21,8 +23,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\..\..\Common\Evently.Common.ModuleArchitecture.Tests\Evently.Common.ModuleArchitecture.Tests.csproj" />
-      <ProjectReference Include="..\..\Evently.Modules.Users.Infrastructure\Evently.Modules.Users.Infrastructure.csproj" />
+      <ProjectReference Include="..\Evently.Common.Application\Evently.Common.Application.csproj" />
     </ItemGroup>
 
 </Project>

@@ -10,6 +10,8 @@ public sealed class TicketType : Entity
     public decimal Quantity { get; private set; }
     public decimal AvailableQuantity { get; private set; }
 
+    private TicketType() {}
+    
     public static TicketType Create(
         Guid id,
         Guid eventId,

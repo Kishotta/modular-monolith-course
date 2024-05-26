@@ -2,7 +2,7 @@ using FluentValidation;
 
 namespace Evently.Modules.Events.Application.Categories.UpdateCategory;
 
-public class UpdateCategoryCommandValidator : AbstractValidator<UpdateCategoryCommand>
+internal sealed class UpdateCategoryCommandValidator : AbstractValidator<UpdateCategoryCommand>
 {
     public UpdateCategoryCommandValidator()
     {

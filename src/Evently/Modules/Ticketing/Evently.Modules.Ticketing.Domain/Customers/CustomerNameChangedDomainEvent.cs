@@ -1,6 +1,6 @@
 namespace Evently.Modules.Ticketing.Domain.Customers;
 
-public class CustomerNameChangedDomainEvent(
+public sealed class CustomerNameChangedDomainEvent(
     Guid customerId, 
     string firstName,
     string lastName) : DomainEvent

@@ -2,7 +2,7 @@ using Evently.Modules.Events.Domain.TicketTypes;
 
 namespace Evently.Modules.Events.Application.TicketTypes.UpdateTicketTypePrice;
 
-public class UpdateTicketTypePriceCommandHandler(
+internal sealed class UpdateTicketTypePriceCommandHandler(
     ITicketTypeRepository ticketTypes,
     IUnitOfWork unitOfWork)
     : ICommandHandler<UpdateTicketTypePriceCommand, TicketTypeResponse>

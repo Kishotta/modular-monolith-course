@@ -1,3 +1,3 @@
 namespace Evently.Modules.Events.Application.Categories.GetCategories;
 
-public class GetCategoriesQuery : IQuery<IReadOnlyCollection<CategoryResponse>>;
+public sealed class GetCategoriesQuery : IQuery<IReadOnlyCollection<CategoryResponse>>;

@@ -1,3 +1,4 @@
+using Evently.Common.Application.EventBus;
 using Evently.Common.Application.Exceptions;
 using Evently.Modules.Ticketing.Application.Customers.ChangeCustomerName;
 using Evently.Modules.Users.IntegrationEvents;
@@ -5,8 +6,8 @@ using MassTransit;
 
 namespace Evently.Modules.Ticketing.Presentation.Customers;
 
-public class UserProfileUpdatedIntegrationEventConsumer(ISender sender)
-    : IConsumer<UserNameChangedIntegrationEvent>
+public sealed class UserProfileUpdatedIntegrationEventHandler(ISender sender)
+    : IIntegrationEventHandler<UserNameChangedIntegrationEvent>
 {
     public async Task Consume(ConsumeContext<UserNameChangedIntegrationEvent> context)
     {

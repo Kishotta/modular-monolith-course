@@ -1,7 +1,7 @@
 using FluentAssertions;
 using NetArchTest.Rules;
 
-namespace Evently.Modules.Users.Architecture.Tests.Abstractions;
+namespace Evently.Common.ModuleArchitecture.Tests;
 
 internal static class TestResultExtensions
 {

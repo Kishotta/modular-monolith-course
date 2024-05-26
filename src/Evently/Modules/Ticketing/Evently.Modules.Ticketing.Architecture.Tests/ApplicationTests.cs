@@ -1,11 +1,12 @@
 using System.Reflection;
 using Evently.Common.ModuleArchitecture.Tests;
+using Evently.Modules.Ticketing.Application;
 
-namespace Evently.Modules.Users.Architecture.Tests;
+namespace Evently.Modules.Ticketing.Architecture.Tests;
 
 public class ApplicationTests : CommonApplicationTests
 {
-    private static readonly Assembly ApplicationAssembly = Application.AssemblyReference.Assembly;
+    private static readonly Assembly ApplicationAssembly = AssemblyReference.Assembly;
     
     [Fact]
     public void Commands_Should_BeSealed()

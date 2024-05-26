@@ -15,7 +15,7 @@ internal sealed class ChangeUserName : IEndpoint
 
                 return result.Match(Results.Ok, ApiResults.Problem);
             })
-            .RequireAuthorization()
+            .RequireAuthorization(Permissions.ChangeUserName)
             .WithName(nameof(ChangeUserNameCommand))
             .WithTags(Tags.Users);
     }

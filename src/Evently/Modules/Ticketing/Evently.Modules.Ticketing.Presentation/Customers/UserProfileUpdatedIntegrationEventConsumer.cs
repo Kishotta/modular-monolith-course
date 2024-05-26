@@ -6,9 +6,9 @@ using MassTransit;
 namespace Evently.Modules.Ticketing.Presentation.Customers;
 
 public class UserProfileUpdatedIntegrationEventConsumer(ISender sender)
-    : IConsumer<UserProfileUpdatedIntegrationEvent>
+    : IConsumer<UserNameChangedIntegrationEvent>
 {
-    public async Task Consume(ConsumeContext<UserProfileUpdatedIntegrationEvent> context)
+    public async Task Consume(ConsumeContext<UserNameChangedIntegrationEvent> context)
     {
         var result = await sender.Send(
             new ChangeCustomerNameCommand(

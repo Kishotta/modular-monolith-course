@@ -18,14 +18,16 @@ internal sealed class UserRegisteredDomainEventHandler(
         if (result.IsFailure) 
             throw new EventlyException(nameof(GetUserQuery), result.Error);
 
+        var user = result.Value;
+
         await eventBus.PublishAsync(
             new UserRegisteredIntegrationEvent(
                 notification.Id,
                 notification.OccuredAtUtc,
-                result.Value.Id,
-                result.Value.Email,
-                result.Value.FirstName,
-                result.Value.LastName), 
+                user.Id,
+                user.Email,
+                user.FirstName,
+                user.LastName), 
             cancellationToken);
     }
 }

@@ -9,8 +9,7 @@ public sealed record UserResponse(
     string LastName)
 {
     public static implicit operator UserResponse(User user) =>
-        new(
-            user.Id,
+        new(user.Id,
             user.Email, 
             user.FirstName, 
             user.LastName);

@@ -11,7 +11,7 @@ internal sealed class UserNameChangedDomainEventHandler (
     public async Task Handle(UserNameChangedDomainEvent notification, CancellationToken cancellationToken)
     {
         await eventBus.PublishAsync(
-            new UserProfileUpdatedIntegrationEvent(
+            new UserNameChangedIntegrationEvent(
                 notification.Id,
                 notification.OccuredAtUtc,
                 notification.UserId,

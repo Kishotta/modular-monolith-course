@@ -1,4 +1,3 @@
-using Evently.Common.Infrastructure;
 using Evently.Common.Infrastructure.Database;
 using Evently.Common.Presentation.Endpoints;
 using Evently.Modules.Attendance.Application.Abstractions.Authentication;
@@ -6,6 +5,7 @@ using Evently.Modules.Attendance.Application.Abstractions.Data;
 using Evently.Modules.Attendance.Domain.Attendees;
 using Evently.Modules.Attendance.Domain.Events;
 using Evently.Modules.Attendance.Domain.Tickets;
+using Evently.Modules.Attendance.Infrastructure.Attendees;
 using Evently.Modules.Attendance.Infrastructure.Authentication;
 using Evently.Modules.Attendance.Infrastructure.Database;
 using Evently.Modules.Attendance.Infrastructure.Events;
@@ -25,14 +25,14 @@ public static class AttendanceModule
     
     private static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration) =>
         services
-            .AddDatabase(configuration)
-            .AddScoped<IAttendanceContext, AttendanceContext>();
+            .AddScoped<IAttendanceContext, AttendanceContext>()
+            .AddDatabase(configuration);
     
     private static IServiceCollection AddDatabase(this IServiceCollection services, IConfiguration configuration) =>
         services
             .AddDbContext<AttendanceDbContext>(Postgres.StandardOptions(configuration, Schemas.Attendance))
             .AddScoped<IUnitOfWork>(serviceProvider => serviceProvider.GetRequiredService<AttendanceDbContext>())
-            .AddScoped<IAttendeeRepository, IAttendeeRepository>()
+            .AddScoped<IAttendeeRepository, AttendeeRepository>()
             .AddScoped<IEventRepository, EventRepository>()
             .AddScoped<ITicketRepository, TicketRepository>();
     

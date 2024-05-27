@@ -1,3 +1,4 @@
+using Evently.Modules.Attendance.Infrastructure.Database;
 using Evently.Modules.Events.Infrastructure.Database;
 using Evently.Modules.Ticketing.Infrastructure.Database;
 using Evently.Modules.Users.Infrastructure.Database;
@@ -11,6 +12,7 @@ public static class MigrationExtensions
     {
         using var scope = app.ApplicationServices.CreateScope();
         
+        ApplyMigrations<AttendanceDbContext>(scope);
         ApplyMigrations<EventsDbContext>(scope);
         ApplyMigrations<UsersDbContext>(scope);
         ApplyMigrations<TicketingDbContext>(scope);

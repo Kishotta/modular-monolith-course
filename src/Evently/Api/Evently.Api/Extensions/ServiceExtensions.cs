@@ -1,6 +1,7 @@
 using Evently.Api.Middleware;
 using Evently.Common.Application;
 using Evently.Common.Infrastructure;
+using Evently.Modules.Attendance.Infrastructure;
 using Evently.Modules.Events.Infrastructure;
 using Evently.Modules.Ticketing.Infrastructure;
 using Evently.Modules.Users.Infrastructure;
@@ -36,18 +37,21 @@ public static class ServiceExtensions
     {
         services
             .AddApplication([
+                Modules.Attendance.Application.AssemblyReference.Assembly,
                 Modules.Events.Application.AssemblyReference.Assembly,
                 Modules.Ticketing.Application.AssemblyReference.Assembly,
                 Modules.Users.Application.AssemblyReference.Assembly
             ]) 
             .AddInfrastructure(
                 [
+                    AttendanceModule.ConfigureConsumers,
                     TicketingModule.ConfigureConsumers
                 ],
                 databaseConnectionString,
                 cacheConnectionString);
 
-        services.AddEventsModule(configuration)
+        services.AddAttendanceModule(configuration)
+            .AddEventsModule(configuration)
             .AddTicketingModule(configuration)
             .AddUsersModule(configuration);
         

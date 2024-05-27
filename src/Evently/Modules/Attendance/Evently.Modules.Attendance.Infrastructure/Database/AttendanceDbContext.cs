@@ -7,13 +7,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Evently.Modules.Attendance.Infrastructure.Database;
 
-public class AttendanceDbContext(DbContextOptions<AttendanceDbContext> options)
+public sealed class AttendanceDbContext(DbContextOptions<AttendanceDbContext> options)
     : DbContext(options), IUnitOfWork
 {
     internal DbSet<Attendee> Attendees => Set<Attendee>();
-
     internal DbSet<Event> Events => Set<Event>();
-
     internal DbSet<Ticket> Tickets => Set<Ticket>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

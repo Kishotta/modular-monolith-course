@@ -9,6 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.AddLogging();
 
 builder.Configuration.AddModuleConfiguration([
+    "attendance",
     "events",
     "ticketing",
     "users"

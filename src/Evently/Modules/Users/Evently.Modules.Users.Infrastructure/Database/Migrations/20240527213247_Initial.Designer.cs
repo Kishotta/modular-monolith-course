@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Evently.Modules.Users.Infrastructure.Database.Migrations
 {
     [DbContext(typeof(UsersDbContext))]
-    [Migration("20240525043645_Initial")]
+    [Migration("20240527213247_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -73,6 +73,42 @@ namespace Evently.Modules.Users.Infrastructure.Database.Migrations
                         .HasName("pk_audit_logs");
 
                     b.ToTable("audit_logs", "users");
+                });
+
+            modelBuilder.Entity("Evently.Common.Infrastructure.Outbox.OutboxMessage", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasMaxLength(3000)
+                        .HasColumnType("jsonb")
+                        .HasColumnName("content");
+
+                    b.Property<string>("Error")
+                        .HasColumnType("text")
+                        .HasColumnName("error");
+
+                    b.Property<DateTime>("OccuredAtUtc")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("occured_at_utc");
+
+                    b.Property<DateTime?>("ProcessedAtUtc")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("processed_at_utc");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("type");
+
+                    b.HasKey("Id")
+                        .HasName("pk_outbox_messages");
+
+                    b.ToTable("outbox_messages", "users");
                 });
 
             modelBuilder.Entity("Evently.Modules.Users.Domain.Users.Permission", b =>

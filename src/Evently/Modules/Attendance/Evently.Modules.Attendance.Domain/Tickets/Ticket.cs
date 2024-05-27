@@ -1,9 +1,11 @@
 using Evently.Common.Domain;
+using Evently.Common.Domain.Auditing;
 using Evently.Modules.Attendance.Domain.Attendees;
 using Evently.Modules.Attendance.Domain.Events;
 
 namespace Evently.Modules.Attendance.Domain.Tickets;
 
+[Auditable]
 public sealed class Ticket : Entity
 {
     public Guid Id { get; private set; }

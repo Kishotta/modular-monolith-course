@@ -1,5 +1,8 @@
+using Evently.Common.Domain.Auditing;
+
 namespace Evently.Modules.Ticketing.Domain.Orders;
 
+[Auditable]
 public sealed class OrderItem
 {
     public Guid Id { get; private set; }

@@ -9,6 +9,7 @@ using Evently.Modules.Users.Domain.Users;
 using Evently.Modules.Users.Infrastructure.Authorization;
 using Evently.Modules.Users.Infrastructure.Database;
 using Evently.Modules.Users.Infrastructure.Identity;
+using Evently.Modules.Users.Infrastructure.Outbox;
 using Evently.Modules.Users.Infrastructure.Users;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations;
@@ -25,11 +26,13 @@ public static class UsersModule
             .AddInfrastructure(configuration)
             .AddEndpoints(Presentation.AssemblyReference.Assembly);
 
-    private static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration) =>
+    private static IServiceCollection
+        AddInfrastructure(this IServiceCollection services, IConfiguration configuration) =>
         services
             .AddScoped<IPermissionService, PermissionService>()
             .AddIdentityProvider(configuration)
-            .AddDatabase(configuration);
+            .AddDatabase(configuration)
+            .AddOutbox(configuration);
 
     private static IServiceCollection AddIdentityProvider(this IServiceCollection services, IConfiguration configuration)
     {
@@ -53,4 +56,9 @@ public static class UsersModule
             .AddDbContext<UsersDbContext>(Postgres.StandardOptions(configuration, Schemas.Users))
             .AddScoped<IUnitOfWork>(serviceProvider => serviceProvider.GetRequiredService<UsersDbContext>())
             .AddScoped<IUserRepository, UserRepository>();
+
+    private static IServiceCollection AddOutbox(this IServiceCollection services, IConfiguration configuration) =>
+        services
+            .Configure<OutboxOptions>(configuration.GetSection("Users:Outbox"))
+            .ConfigureOptions<ConfigureProcessOutboxJob>();
 }

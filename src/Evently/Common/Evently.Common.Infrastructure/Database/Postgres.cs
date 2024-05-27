@@ -19,7 +19,7 @@ public static class Postgres
                         optionsBuilder.MigrationsHistoryTable(HistoryRepository.DefaultTableName, schema);
                     }).UseSnakeCaseNamingConvention()
                 .AddInterceptors(
-                    serviceProvider.GetRequiredService<PublishDomainEventsInterceptor>(),
+                    serviceProvider.GetRequiredService<InsertOutboxMessagesInterceptor>(),
                     serviceProvider.GetRequiredService<WriteAuditLogInterceptor>());
         };
 }

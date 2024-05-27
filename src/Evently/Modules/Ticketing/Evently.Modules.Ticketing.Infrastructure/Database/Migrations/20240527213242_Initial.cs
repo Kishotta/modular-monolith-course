@@ -68,6 +68,23 @@ namespace Evently.Modules.Ticketing.Infrastructure.Database.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "outbox_messages",
+                schema: "ticketing",
+                columns: table => new
+                {
+                    id = table.Column<Guid>(type: "uuid", nullable: false),
+                    type = table.Column<string>(type: "text", nullable: false),
+                    content = table.Column<string>(type: "jsonb", maxLength: 3000, nullable: false),
+                    occured_at_utc = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    processed_at_utc = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    error = table.Column<string>(type: "text", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_outbox_messages", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "orders",
                 schema: "ticketing",
                 columns: table => new
@@ -300,6 +317,10 @@ namespace Evently.Modules.Ticketing.Infrastructure.Database.Migrations
 
             migrationBuilder.DropTable(
                 name: "order_items",
+                schema: "ticketing");
+
+            migrationBuilder.DropTable(
+                name: "outbox_messages",
                 schema: "ticketing");
 
             migrationBuilder.DropTable(

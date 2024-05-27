@@ -1,7 +1,9 @@
+using Evently.Common.Domain.Auditing;
 using Evently.Modules.Ticketing.Domain.Orders;
 
 namespace Evently.Modules.Ticketing.Domain.Payments;
 
+[Auditable]
 public sealed class Payment : Entity
 {
     public Guid Id { get; private set; }

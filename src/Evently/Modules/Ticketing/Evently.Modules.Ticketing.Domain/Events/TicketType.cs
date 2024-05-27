@@ -1,5 +1,8 @@
+using Evently.Common.Domain.Auditing;
+
 namespace Evently.Modules.Ticketing.Domain.Events;
 
+[Auditable]
 public sealed class TicketType : Entity
 {
     public Guid Id { get; private set; }

@@ -34,8 +34,6 @@ builder.Services
     .AddRedis(cacheConnectionString)
     .AddUrlGroup(new Uri(keycloakHealthUrl), HttpMethod.Get, "Keycloak");
 
-builder.Services.AddOpenApi();
-
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())

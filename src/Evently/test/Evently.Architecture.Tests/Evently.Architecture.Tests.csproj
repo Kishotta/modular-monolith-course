@@ -34,6 +34,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\Api\Evently.Api\Evently.Api.csproj" />
+      <ProjectReference Include="..\..\Modules\Attendance\Evently.Modules.Attendance.Domain\Evently.Modules.Attendance.Domain.csproj" />
     </ItemGroup>
 
 </Project>

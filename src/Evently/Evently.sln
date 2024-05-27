@@ -80,6 +80,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Evently.Modules.Ticketing.A
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Evently.Modules.Events.Architecture.Tests", "Modules\Events\Evently.Modules.Events.Architecture.Tests\Evently.Modules.Events.Architecture.Tests.csproj", "{17CFE0E8-47FF-4C20-B731-E05B7D6936A3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Evently.Modules.Attendance.Architecture.Tests", "Modules\Attendance\Evently.Modules.Attendance.Architecture.Tests\Evently.Modules.Attendance.Architecture.Tests.csproj", "{7C9DE625-4BBE-46EE-B2A1-BC36746F6E89}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Evently.Modules.Ticketing.IntegrationEvents", "Modules\Ticketing\Evently.Modules.Ticketing.IntegrationEvents\Evently.Modules.Ticketing.IntegrationEvents.csproj", "{B847E8B3-B237-40E6-B589-68CD8BDE59E2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -124,6 +128,8 @@ Global
 		{F545B87F-64C5-4032-A956-4BCCB0984A8C} = {A4353BC3-5425-4A47-8923-03383E62FF8C}
 		{923B25EC-BAFA-4993-8378-25E1B8816951} = {8A00D266-25F3-41F8-845E-9BE9DCB0D27B}
 		{17CFE0E8-47FF-4C20-B731-E05B7D6936A3} = {5918C38D-63BE-4C8D-9C33-F1137E0CD8B1}
+		{7C9DE625-4BBE-46EE-B2A1-BC36746F6E89} = {F642188A-51BD-4CB0-A50F-FD1029E5FD30}
+		{B847E8B3-B237-40E6-B589-68CD8BDE59E2} = {8A00D266-25F3-41F8-845E-9BE9DCB0D27B}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{6B9B9877-1915-4CB8-B2D0-E23485CA0286}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -246,5 +252,13 @@ Global
 		{17CFE0E8-47FF-4C20-B731-E05B7D6936A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{17CFE0E8-47FF-4C20-B731-E05B7D6936A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{17CFE0E8-47FF-4C20-B731-E05B7D6936A3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C9DE625-4BBE-46EE-B2A1-BC36746F6E89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C9DE625-4BBE-46EE-B2A1-BC36746F6E89}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C9DE625-4BBE-46EE-B2A1-BC36746F6E89}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C9DE625-4BBE-46EE-B2A1-BC36746F6E89}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B847E8B3-B237-40E6-B589-68CD8BDE59E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B847E8B3-B237-40E6-B589-68CD8BDE59E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B847E8B3-B237-40E6-B589-68CD8BDE59E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B847E8B3-B237-40E6-B589-68CD8BDE59E2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

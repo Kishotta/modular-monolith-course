@@ -40,6 +40,6 @@ public sealed class Ticket : Entity
 
         Archived = true;
         
-        RaiseDomainEvent(new TicketArchivedDomainEvent(Id));
+        RaiseDomainEvent(new TicketArchivedDomainEvent(Id, Code));
     }
 }

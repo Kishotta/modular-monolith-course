@@ -1,5 +1,6 @@
 using System.Reflection;
 using Evently.Architecture.Tests.Abstractions;
+using Evently.Modules.Attendance.Domain.Attendees;
 using Evently.Modules.Events.Domain.Events;
 using Evently.Modules.Ticketing.Domain.Orders;
 using Evently.Modules.Users.Domain.Users;
@@ -9,6 +10,34 @@ namespace Evently.Architecture.Tests.Layers;
 
 public class ModuleTests : BaseTest
 {
+    [Fact]
+    public void AttendanceModule_ShouldNotHaveDependencyOn_AnyOtherModule()
+    {
+        string[] otherModules = [EventsNamespace, TicketingNamespace, UsersNamespace]; 
+        string[] integrationEventsModules =
+        [
+            EventsIntegrationEventsNamespace,
+            TicketingIntegrationEventsNamespace,
+            UsersIntegrationEventsNamespace
+        ];
+
+        List<Assembly> attendanceAssemblies =
+        [
+            typeof(Attendee).Assembly,
+            Modules.Attendance.Application.AssemblyReference.Assembly,
+            Modules.Attendance.Presentation.AssemblyReference.Assembly,
+            Modules.Attendance.Infrastructure.AssemblyReference.Assembly,
+        ];
+        
+        Types.InAssemblies(attendanceAssemblies)
+            .That()
+            .DoNotHaveDependencyOnAny(integrationEventsModules)
+            .Should()
+            .NotHaveDependencyOnAny(otherModules)
+            .GetResult()
+            .ShouldBeSuccessful();
+    }
+    
     [Fact]
     public void EventsModule_ShouldNotHaveDependencyOn_AnyOtherModule()
     {

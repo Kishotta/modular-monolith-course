@@ -10,6 +10,7 @@ using Evently.Modules.Attendance.Infrastructure.Attendees;
 using Evently.Modules.Attendance.Infrastructure.Authentication;
 using Evently.Modules.Attendance.Infrastructure.Database;
 using Evently.Modules.Attendance.Infrastructure.Events;
+using Evently.Modules.Attendance.Infrastructure.Outbox;
 using Evently.Modules.Attendance.Infrastructure.Tickets;
 using MassTransit;
 using Microsoft.Extensions.Configuration;
@@ -54,5 +55,18 @@ public static class AttendanceModule
             .GetTypes()
             .Where(type => type.IsAssignableTo(typeof(IDomainEventHandler)))
             .ToList()
-            .ForEach(services.TryAddScoped);
+            .ForEach(domainEventHandlerType =>
+            {
+                services.TryAddScoped(domainEventHandlerType);
+
+                var domainEventType = domainEventHandlerType
+                    .GetInterfaces()
+                    .Single(@interface => @interface.IsGenericType)
+                    .GetGenericArguments()
+                    .Single();
+
+                var closedIdempotentHandlerType = typeof(IdempotentDomainEventHandler<>).MakeGenericType(domainEventType);
+                
+                services.Decorate(domainEventHandlerType, closedIdempotentHandlerType);
+            });
 }

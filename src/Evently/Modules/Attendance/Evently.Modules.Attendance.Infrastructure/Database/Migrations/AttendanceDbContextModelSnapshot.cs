@@ -108,6 +108,23 @@ namespace Evently.Modules.Attendance.Infrastructure.Database.Migrations
                     b.ToTable("outbox_messages", "attendance");
                 });
 
+            modelBuilder.Entity("Evently.Common.Infrastructure.Outbox.OutboxMessageConsumer", b =>
+                {
+                    b.Property<Guid>("OutboxMessageId")
+                        .HasMaxLength(500)
+                        .HasColumnType("uuid")
+                        .HasColumnName("outbox_message_id");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text")
+                        .HasColumnName("name");
+
+                    b.HasKey("OutboxMessageId", "Name")
+                        .HasName("pk_outbox_message_consumers");
+
+                    b.ToTable("outbox_message_consumers", "attendance");
+                });
+
             modelBuilder.Entity("Evently.Modules.Attendance.Domain.Attendees.Attendee", b =>
                 {
                     b.Property<Guid>("Id")

@@ -8,6 +8,7 @@ using Evently.Modules.Events.Domain.TicketTypes;
 using Evently.Modules.Events.Infrastructure.Categories;
 using Evently.Modules.Events.Infrastructure.Database;
 using Evently.Modules.Events.Infrastructure.Events;
+using Evently.Modules.Events.Infrastructure.Outbox;
 using Evently.Modules.Events.Infrastructure.TicketTypes;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -41,5 +42,18 @@ public static class EventsModule
             .GetTypes()
             .Where(type => type.IsAssignableTo(typeof(IDomainEventHandler)))
             .ToList()
-            .ForEach(services.TryAddScoped);
+            .ForEach(domainEventHandlerType =>
+            {
+                services.TryAddScoped(domainEventHandlerType);
+
+                var domainEventType = domainEventHandlerType
+                    .GetInterfaces()
+                    .Single(@interface => @interface.IsGenericType)
+                    .GetGenericArguments()
+                    .Single();
+
+                var closedIdempotentHandlerType = typeof(IdempotentDomainEventHandler<>).MakeGenericType(domainEventType);
+                
+                services.Decorate(domainEventHandlerType, closedIdempotentHandlerType);
+            });
 }

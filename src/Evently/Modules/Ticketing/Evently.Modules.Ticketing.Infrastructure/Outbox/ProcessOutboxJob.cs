@@ -2,18 +2,16 @@ using System.Data;
 using Dapper;
 using Evently.Common.Application.Clock;
 using Evently.Common.Application.Data;
-using Evently.Common.Application.Messaging;
 using Evently.Common.Domain;
 using Evently.Common.Infrastructure.Outbox;
 using Evently.Common.Infrastructure.Serialization;
-using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Quartz;
 
-namespace Evently.Modules.Users.Infrastructure.Outbox;
+namespace Evently.Modules.Ticketing.Infrastructure.Outbox;
 
 [DisallowConcurrentExecution]
 internal sealed class ProcessOutboxJob(

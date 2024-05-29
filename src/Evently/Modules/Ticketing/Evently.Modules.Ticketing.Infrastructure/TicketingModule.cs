@@ -13,6 +13,7 @@ using Evently.Modules.Ticketing.Infrastructure.Customers;
 using Evently.Modules.Ticketing.Infrastructure.Database;
 using Evently.Modules.Ticketing.Infrastructure.Events;
 using Evently.Modules.Ticketing.Infrastructure.Orders;
+using Evently.Modules.Ticketing.Infrastructure.Outbox;
 using Evently.Modules.Ticketing.Infrastructure.Payments;
 using Evently.Modules.Ticketing.Infrastructure.Tickets;
 using MassTransit;
@@ -27,7 +28,7 @@ public static class TicketingModule
     public static IServiceCollection AddTicketingModule(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddDomainEventHandlers();
-        
+
         services
             .AddInfrastructure(configuration)
             .AddEndpoints(Presentation.AssemblyReference.Assembly);
@@ -35,7 +36,8 @@ public static class TicketingModule
         return services;
     }
 
-    private static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration) =>
+    private static IServiceCollection
+        AddInfrastructure(this IServiceCollection services, IConfiguration configuration) =>
         services
             .AddSingleton<CartService>()
             .AddSingleton<IPaymentService, FakePaymentService>()
@@ -56,11 +58,25 @@ public static class TicketingModule
     {
         registrationConfigurator.AddConsumers(Presentation.AssemblyReference.Assembly);
     }
-    
+
     private static void AddDomainEventHandlers(this IServiceCollection services) =>
         Application.AssemblyReference.Assembly
             .GetTypes()
             .Where(type => type.IsAssignableTo(typeof(IDomainEventHandler)))
             .ToList()
-            .ForEach(services.TryAddScoped);
+            .ForEach(domainEventHandlerType =>
+            {
+                services.TryAddScoped(domainEventHandlerType);
+
+                var domainEventType = domainEventHandlerType
+                    .GetInterfaces()
+                    .Single(@interface => @interface.IsGenericType)
+                    .GetGenericArguments()
+                    .Single();
+
+                var closedIdempotentHandlerType =
+                    typeof(IdempotentDomainEventHandler<>).MakeGenericType(domainEventType);
+
+                services.Decorate(domainEventHandlerType, closedIdempotentHandlerType);
+            });
 }

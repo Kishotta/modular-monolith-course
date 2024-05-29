@@ -5,7 +5,7 @@ using Evently.Common.Application.Messaging;
 using Evently.Common.Domain;
 using Evently.Common.Infrastructure.Outbox;
 
-namespace Evently.Modules.Users.Infrastructure.Outbox;
+namespace Evently.Modules.Events.Infrastructure.Outbox;
 
 public class IdempotentDomainEventHandler<TDomainEvent>(
     IDomainEventHandler<TDomainEvent> decorated,
@@ -34,7 +34,7 @@ public class IdempotentDomainEventHandler<TDomainEvent>(
             """
             SELECT EXISTS(
                 SELECT 1
-                FROM users.outbox_message_consumers
+                FROM events.outbox_message_consumers
                 WHERE outbox_message_id = @OutboxMessageId AND 
                       name = @Name
             )
@@ -49,7 +49,7 @@ public class IdempotentDomainEventHandler<TDomainEvent>(
     {
         const string sql =
             """
-            INSERT INTO users.outbox_message_consumers(outbox_message_id, name)
+            INSERT INTO events.outbox_message_consumers(outbox_message_id, name)
             VALUES (@OutboxMessageId, @Name)
             """;
         

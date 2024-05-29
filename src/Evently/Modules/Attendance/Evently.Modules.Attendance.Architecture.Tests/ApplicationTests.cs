@@ -1,6 +1,6 @@
 using System.Reflection;
 using Evently.Common.ModuleArchitecture.Tests;
-using Evently.Modules.Attendance.Infrastructure;
+using Evently.Modules.Attendance.Application;
 
 namespace Evently.Modules.Attendance.Architecture.Tests;
 

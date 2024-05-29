@@ -1,3 +1,4 @@
+using Evently.Common.Application.Messaging;
 using Evently.Common.Infrastructure.Database;
 using Evently.Common.Presentation.Endpoints;
 using Evently.Modules.Ticketing.Application.Abstractions.Data;
@@ -17,15 +18,22 @@ using Evently.Modules.Ticketing.Infrastructure.Tickets;
 using MassTransit;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace Evently.Modules.Ticketing.Infrastructure;
 
 public static class TicketingModule
 {
-    public static IServiceCollection AddTicketingModule(this IServiceCollection services, IConfiguration configuration) =>
+    public static IServiceCollection AddTicketingModule(this IServiceCollection services, IConfiguration configuration)
+    {
+        services.AddDomainEventHandlers();
+        
         services
             .AddInfrastructure(configuration)
             .AddEndpoints(Presentation.AssemblyReference.Assembly);
+
+        return services;
+    }
 
     private static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration) =>
         services
@@ -48,4 +56,11 @@ public static class TicketingModule
     {
         registrationConfigurator.AddConsumers(Presentation.AssemblyReference.Assembly);
     }
+    
+    private static void AddDomainEventHandlers(this IServiceCollection services) =>
+        Application.AssemblyReference.Assembly
+            .GetTypes()
+            .Where(type => type.IsAssignableTo(typeof(IDomainEventHandler)))
+            .ToList()
+            .ForEach(services.TryAddScoped);
 }

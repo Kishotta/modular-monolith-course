@@ -4,9 +4,9 @@ using Microsoft.Extensions.Logging;
 namespace Evently.Modules.Events.Application.Events.RescheduleEvent;
 
 internal sealed class EventRescheduledDomainEventHandler(ILogger<EventRescheduledDomainEventHandler> logger)
-    : IDomainEventHandler<EventRescheduledDomainEvent>
+    : DomainEventHandler<EventRescheduledDomainEvent>
 {
-    public Task Handle(EventRescheduledDomainEvent notification, CancellationToken cancellationToken)
+    public override Task Handle(EventRescheduledDomainEvent notification, CancellationToken cancellationToken = default)
     {
         logger.LogInformation("Event rescheduled: {EventId}", notification.EventId);
         

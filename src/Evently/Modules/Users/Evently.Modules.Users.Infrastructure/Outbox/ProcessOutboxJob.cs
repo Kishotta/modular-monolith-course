@@ -3,6 +3,7 @@ using Dapper;
 using Evently.Common.Application.Clock;
 using Evently.Common.Application.Data;
 using Evently.Common.Domain;
+using Evently.Common.Infrastructure.Outbox;
 using Evently.Common.Infrastructure.Serialization;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
@@ -41,10 +42,16 @@ internal sealed class ProcessOutboxJob(
                 var domainEvent = JsonConvert.DeserializeObject<IDomainEvent>(outboxMessage.Content, SerializerSettings.Instance)!;
                 
                 using var scope = serviceScopeFactory.CreateScope();
-                
-                var publisher = scope.ServiceProvider.GetRequiredService<IPublisher>();
 
-                await publisher.Publish(domainEvent);
+                var domainEventHandlers = DomainEventHandlersFactory.GetHandlers(
+                    domainEvent.GetType(),
+                    scope.ServiceProvider,
+                    Application.AssemblyReference.Assembly);
+
+                foreach (var domainEventHandler in domainEventHandlers)
+                {
+                    await domainEventHandler.Handle(domainEvent);
+                }
             }
             catch (Exception caughtException)
             {

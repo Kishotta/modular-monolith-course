@@ -10,9 +10,9 @@ namespace Evently.Modules.Events.Application.Events.PublishEvent;
 internal sealed class EventPublishedDomainEventHandler(
     ISender sender,
     IEventBus eventBus)
-    : IDomainEventHandler<EventPublishedDomainEvent>
+    : DomainEventHandler<EventPublishedDomainEvent>
 {
-    public async Task Handle(EventPublishedDomainEvent notification, CancellationToken cancellationToken)
+    public override async Task Handle(EventPublishedDomainEvent notification, CancellationToken cancellationToken = default)
     {
         var result = await sender.Send(new GetEventQuery(notification.EventId), cancellationToken);
         if (result.IsFailure)

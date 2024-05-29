@@ -1,3 +1,4 @@
+using Evently.Common.Application.Messaging;
 using Evently.Common.Infrastructure.Database;
 using Evently.Common.Presentation.Endpoints;
 using Evently.Modules.Events.Application.Abstractions.Data;
@@ -10,15 +11,22 @@ using Evently.Modules.Events.Infrastructure.Events;
 using Evently.Modules.Events.Infrastructure.TicketTypes;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace Evently.Modules.Events.Infrastructure;
 
 public static class EventsModule
 {
-    public static IServiceCollection AddEventsModule(this IServiceCollection services, IConfiguration configuration) =>
+    public static IServiceCollection AddEventsModule(this IServiceCollection services, IConfiguration configuration)
+    {
+        services.AddDomainEventHandlers();
+        
         services
-            .AddEndpoints(Presentation.AssemblyReference.Assembly)
-            .AddInfrastructure(configuration);
+            .AddInfrastructure(configuration)
+            .AddEndpoints(Presentation.AssemblyReference.Assembly);
+
+        return services;
+    }
 
     private static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration) =>
         services
@@ -28,5 +36,10 @@ public static class EventsModule
             .AddScoped<ICategoryRepository, CategoryRepository>()
             .AddScoped<ITicketTypeRepository, TicketTypeRepository>();
 
-    
+    private static void AddDomainEventHandlers(this IServiceCollection services) =>
+        Application.AssemblyReference.Assembly
+            .GetTypes()
+            .Where(type => type.IsAssignableTo(typeof(IDomainEventHandler)))
+            .ToList()
+            .ForEach(services.TryAddScoped);
 }

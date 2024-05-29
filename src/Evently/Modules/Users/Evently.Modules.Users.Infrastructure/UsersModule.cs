@@ -1,4 +1,5 @@
 using Evently.Common.Application.Authorization;
+using Evently.Common.Application.Messaging;
 using Evently.Common.Infrastructure.Auditing;
 using Evently.Common.Infrastructure.Database;
 using Evently.Common.Infrastructure.Outbox;
@@ -15,16 +16,23 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
 
 namespace Evently.Modules.Users.Infrastructure;
 
 public static class UsersModule
 {
-    public static IServiceCollection AddUsersModule(this IServiceCollection services, IConfiguration configuration) =>
+    public static IServiceCollection AddUsersModule(this IServiceCollection services, IConfiguration configuration)
+    {
+        services.AddDomainEventHandlers();
+        
         services
             .AddInfrastructure(configuration)
             .AddEndpoints(Presentation.AssemblyReference.Assembly);
+
+        return services;
+    }
 
     private static IServiceCollection
         AddInfrastructure(this IServiceCollection services, IConfiguration configuration) =>
@@ -61,4 +69,24 @@ public static class UsersModule
         services
             .Configure<OutboxOptions>(configuration.GetSection("Users:Outbox"))
             .ConfigureOptions<ConfigureProcessOutboxJob>();
+
+    private static void AddDomainEventHandlers(this IServiceCollection services) =>
+        Application.AssemblyReference.Assembly
+            .GetTypes()
+            .Where(type => type.IsAssignableTo(typeof(IDomainEventHandler)))
+            .ToList()
+            .ForEach(domainEventHandlerType =>
+            {
+                services.TryAddScoped(domainEventHandlerType);
+
+                var domainEventType = domainEventHandlerType
+                    .GetInterfaces()
+                    .Single(@interface => @interface.IsGenericType)
+                    .GetGenericArguments()
+                    .Single();
+
+                var closedIdempotentHandlerType = typeof(IdempotentDomainEventHandler<>).MakeGenericType(domainEventType);
+                
+                services.Decorate(domainEventHandlerType, closedIdempotentHandlerType);
+            });
 }

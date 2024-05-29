@@ -6,9 +6,9 @@ namespace Evently.Modules.Users.Application.Users.ChangeUserName;
 
 internal sealed class UserNameChangedDomainEventHandler (
     IEventBus eventBus)
-    : IDomainEventHandler<UserNameChangedDomainEvent>
+    : DomainEventHandler<UserNameChangedDomainEvent>
 {
-    public async Task Handle(UserNameChangedDomainEvent notification, CancellationToken cancellationToken)
+    public override async Task Handle(UserNameChangedDomainEvent notification, CancellationToken cancellationToken = default)
     {
         await eventBus.PublishAsync(
             new UserNameChangedIntegrationEvent(

@@ -8,9 +8,9 @@ using MediatR;
 namespace Evently.Modules.Ticketing.Application.Tickets.CreateTicketBatch;
 
 internal sealed class TicketCreatedDomainEventHandler(ISender sender, IEventBus eventBus)
-    : IDomainEventHandler<TicketCreatedDomainEvent>
+    : DomainEventHandler<TicketCreatedDomainEvent>
 {
-    public async Task Handle(TicketCreatedDomainEvent domainEvent, CancellationToken cancellationToken)
+    public override async Task Handle(TicketCreatedDomainEvent domainEvent, CancellationToken cancellationToken = default)
     {
         var result = await sender.Send(new GetTicketQuery(domainEvent.TicketId), cancellationToken);
         if (result.IsFailure)

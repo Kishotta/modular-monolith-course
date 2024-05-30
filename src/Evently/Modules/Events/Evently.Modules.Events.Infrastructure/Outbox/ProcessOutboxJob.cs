@@ -22,7 +22,7 @@ internal sealed class ProcessOutboxJob(
     ILogger<ProcessOutboxJob> logger)
     : IJob
 {
-    private const string ModuleName = "Users";
+    private const string ModuleName = "Events";
     
     public async Task Execute(IJobExecutionContext context)
     {

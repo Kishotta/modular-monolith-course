@@ -11,6 +11,6 @@ public sealed class OutboxMessageConsumerConfiguration : IEntityTypeConfiguratio
         
         builder.HasKey(outboxMessageConsumer => new { outboxMessageConsumer.OutboxMessageId, outboxMessageConsumer.Name });
 
-        builder.Property(outboxMessageConsumer => outboxMessageConsumer.OutboxMessageId).HasMaxLength(500);
+        builder.Property(outboxMessageConsumer => outboxMessageConsumer.Name).HasMaxLength(500);
     }
 }

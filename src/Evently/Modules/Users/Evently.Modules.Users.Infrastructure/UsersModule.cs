@@ -1,4 +1,5 @@
 using Evently.Common.Application.Authorization;
+using Evently.Common.Application.EventBus;
 using Evently.Common.Application.Messaging;
 using Evently.Common.Infrastructure.Auditing;
 using Evently.Common.Infrastructure.Database;
@@ -10,8 +11,10 @@ using Evently.Modules.Users.Domain.Users;
 using Evently.Modules.Users.Infrastructure.Authorization;
 using Evently.Modules.Users.Infrastructure.Database;
 using Evently.Modules.Users.Infrastructure.Identity;
+using Evently.Modules.Users.Infrastructure.Inbox;
 using Evently.Modules.Users.Infrastructure.Outbox;
 using Evently.Modules.Users.Infrastructure.Users;
+using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.Extensions.Configuration;
@@ -26,6 +29,7 @@ public static class UsersModule
     public static IServiceCollection AddUsersModule(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddDomainEventHandlers();
+        services.AddIntegrationEventHandlers();
         
         services
             .AddInfrastructure(configuration)
@@ -40,7 +44,8 @@ public static class UsersModule
             .AddScoped<IPermissionService, PermissionService>()
             .AddIdentityProvider(configuration)
             .AddDatabase(configuration)
-            .AddOutbox(configuration);
+            .AddOutbox(configuration)
+            .AddInbox(configuration);
 
     private static IServiceCollection AddIdentityProvider(this IServiceCollection services, IConfiguration configuration)
     {
@@ -69,6 +74,27 @@ public static class UsersModule
         services
             .Configure<OutboxOptions>(configuration.GetSection("Users:Outbox"))
             .ConfigureOptions<ConfigureProcessOutboxJob>();
+    
+    private static IServiceCollection AddInbox(this IServiceCollection services, IConfiguration configuration) =>
+        services
+            .Configure<InboxOptions>(configuration.GetSection("Users:Inbox"))
+            .ConfigureOptions<ConfigureProcessInboxJob>();
+    
+    public static void ConfigureConsumers(IRegistrationConfigurator registrationConfigurator) =>
+        Presentation.AssemblyReference.Assembly
+            .GetTypes()
+            .Where(type => type.IsAssignableTo(typeof(IIntegrationEventHandler)))
+            .ToList()
+            .ForEach(integrationEventHandlerType =>
+            {
+                var integrationEventType = integrationEventHandlerType
+                    .GetInterfaces()
+                    .Single(@interface => @interface.IsGenericType)
+                    .GetGenericArguments()
+                    .Single();
+                
+                registrationConfigurator.AddConsumer(typeof(IntegrationEventConsumer<>).MakeGenericType(integrationEventType));
+            });
 
     private static void AddDomainEventHandlers(this IServiceCollection services) =>
         Application.AssemblyReference.Assembly
@@ -88,5 +114,25 @@ public static class UsersModule
                 var closedIdempotentHandlerType = typeof(IdempotentDomainEventHandler<>).MakeGenericType(domainEventType);
                 
                 services.Decorate(domainEventHandlerType, closedIdempotentHandlerType);
+            });
+    
+    private static void AddIntegrationEventHandlers(this IServiceCollection services) =>
+        Presentation.AssemblyReference.Assembly
+            .GetTypes()
+            .Where(type => type.IsAssignableTo(typeof(IIntegrationEventHandler)))
+            .ToList()
+            .ForEach(integrationEventHandlerType =>
+            {
+                services.TryAddScoped(integrationEventHandlerType);
+
+                var integrationEventType = integrationEventHandlerType
+                    .GetInterfaces()
+                    .Single(@interface => @interface.IsGenericType)
+                    .GetGenericArguments()
+                    .Single();
+
+                var closedIdempotentHandlerType = typeof(IdempotentIntegrationEventHandler<>).MakeGenericType(integrationEventType);
+                
+                services.Decorate(integrationEventHandlerType, closedIdempotentHandlerType);
             });
 }

@@ -2,21 +2,20 @@ using Evently.Common.Application.EventBus;
 using Evently.Common.Application.Exceptions;
 using Evently.Modules.Ticketing.Application.Customers.ChangeCustomerName;
 using Evently.Modules.Users.IntegrationEvents;
-using MassTransit;
 
 namespace Evently.Modules.Ticketing.Presentation.Customers;
 
 public sealed class UserProfileUpdatedIntegrationEventHandler(ISender sender)
-    : IIntegrationEventHandler<UserNameChangedIntegrationEvent>
+    : IntegrationEventHandler<UserNameChangedIntegrationEvent>
 {
-    public async Task Consume(ConsumeContext<UserNameChangedIntegrationEvent> context)
+    public override async Task Handle(UserNameChangedIntegrationEvent integrationEvent, CancellationToken cancellationToken = default)
     {
         var result = await sender.Send(
             new ChangeCustomerNameCommand(
-                context.Message.UserId,
-                context.Message.FirstName,
-                context.Message.LastName), 
-            context.CancellationToken);
+                integrationEvent.UserId,
+                integrationEvent.FirstName,
+                integrationEvent.LastName), 
+            cancellationToken);
 
         if (result.IsFailure)
             throw new EventlyException(nameof(ChangeCustomerNameCommand), result.Error);

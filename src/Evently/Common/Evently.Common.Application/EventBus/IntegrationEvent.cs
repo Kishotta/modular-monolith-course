@@ -1,7 +1,7 @@
 namespace Evently.Common.Application.EventBus;
 
-public abstract class IntegrationEvent(Guid id, DateTime occuredAtUtc) : IIntegrationEvent
+public abstract class IntegrationEvent(Guid id, DateTime occurredAtUtc) : IIntegrationEvent
 {
     public Guid Id { get; init; } = id;
-    public DateTime OccuredAtUtc { get; init; } = occuredAtUtc;
+    public DateTime OccurredAtUtc { get; init; } = occurredAtUtc;
 }

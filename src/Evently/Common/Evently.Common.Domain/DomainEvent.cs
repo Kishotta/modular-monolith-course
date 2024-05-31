@@ -3,17 +3,17 @@ namespace Evently.Common.Domain;
 public abstract class DomainEvent : IDomainEvent
 {
     public Guid Id { get; init; }
-    public DateTime OccuredAtUtc { get; init; }
+    public DateTime OccurredAtUtc { get; init; }
 
     protected DomainEvent()
     {
         Id = Guid.NewGuid();
-        OccuredAtUtc = DateTime.UtcNow;
+        OccurredAtUtc = DateTime.UtcNow;
     }
     
-    protected DomainEvent(Guid id, DateTime occuredAtUtc)
+    protected DomainEvent(Guid id, DateTime occurredAtUtc)
     {
         Id = id;
-        OccuredAtUtc = occuredAtUtc;
+        OccurredAtUtc = occurredAtUtc;
     }
 }

@@ -59,6 +59,6 @@ public sealed class Event : Entity
 
     public void TicketsArchived()
     {
-        RaiseDomainEvent(new TicketsArchivedDomainEvent(Id));
+        RaiseDomainEvent(new EventTicketsArchivedDomainEvent(Id));
     }
 }

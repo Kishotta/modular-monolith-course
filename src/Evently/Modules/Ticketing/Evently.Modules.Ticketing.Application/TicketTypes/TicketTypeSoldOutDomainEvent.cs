@@ -12,7 +12,7 @@ internal sealed class TicketTypeSoldOutDomainEventHandler(IEventBus eventBus)
         await eventBus.PublishAsync(
             new TicketTypeSoldOutIntegrationEvent(
                 domainEvent.Id,
-                domainEvent.OccuredAtUtc,
+                domainEvent.OccurredAtUtc,
                 domainEvent.TicketTypeId),
             cancellationToken);
     }

@@ -24,13 +24,13 @@ internal sealed class IntegrationEventConsumer<TIntegrationEvent>(
             Id = integrationEvent.Id,
             Type = integrationEvent.GetType().Name,
             Content = JsonConvert.SerializeObject(integrationEvent, SerializerSettings.Instance),
-            OccuredAtUtc = integrationEvent.OccuredAtUtc
+            OccurredAtUtc = integrationEvent.OccurredAtUtc
         };
 
         const string sql =
             """
-            INSERT INTO users.inbox_messages(id, type, content, occured_at_utc)
-            VALUES (@Id, @Type, @Content::json, @OccuredAtUtc);
+            INSERT INTO users.inbox_messages(id, type, content, occurred_at_utc)
+            VALUES (@Id, @Type, @Content::json, @OccurredAtUtc);
             """;
         
         await connection.ExecuteAsync(sql, inboxMessage);

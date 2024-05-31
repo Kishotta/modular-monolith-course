@@ -19,7 +19,7 @@ internal sealed class TicketCreatedDomainEventHandler(ISender sender, IEventBus 
         await eventBus.PublishAsync(
             new TicketIssuedIntegrationEvent(
                 domainEvent.Id,
-                domainEvent.OccuredAtUtc,
+                domainEvent.OccurredAtUtc,
                 result.Value.Id,
                 result.Value.CustomerId,
                 result.Value.EventId,

@@ -20,7 +20,7 @@ internal sealed class OrderCreatedDomainEventHandler(
 
         await eventBus.PublishAsync(new OrderCreatedIntegrationEvent(
             domainEvent.Id,
-            domainEvent.OccuredAtUtc,
+            domainEvent.OccurredAtUtc,
             result.Value.Id,
             result.Value.CustomerId,
             result.Value.TotalPrice,

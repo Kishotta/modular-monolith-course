@@ -12,7 +12,7 @@ internal sealed class TicketArchivedDomainEventHandler(IEventBus eventBus)
         await eventBus.PublishAsync(
             new TicketArchivedIntegrationEvent(
                 domainEvent.Id,
-                domainEvent.OccuredAtUtc,
+                domainEvent.OccurredAtUtc,
                 domainEvent.TicketId,
                 domainEvent.Code),
             cancellationToken);

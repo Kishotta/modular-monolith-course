@@ -83,7 +83,7 @@ internal sealed class ProcessInboxJob(
                 content AS {nameof(InboxMessageResponse.Content)}
              FROM events.inbox_messages
              WHERE processed_at_utc IS NULL
-             ORDER BY occured_at_utc
+             ORDER BY occurred_at_utc
              LIMIT {inboxOptions.Value.BatchSize}
              FOR UPDATE
              """;

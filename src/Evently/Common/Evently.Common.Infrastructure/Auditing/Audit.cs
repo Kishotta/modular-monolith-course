@@ -6,7 +6,7 @@ public class Audit
     public string UserId { get; set; } = string.Empty;
     public string Type { get; set; } = string.Empty;
     public string TableName { get; set; } = string.Empty;
-    public DateTime OccuredAtUtc { get; set; }
+    public DateTime OccurredAtUtc { get; set; }
     public string PrimaryKey { get; set; } = string.Empty;
     public string? OldValues { get; set; }
     public string? NewValues { get; set; }
@@ -18,7 +18,7 @@ public class Audit
         string userId,
         string auditType,
         string tableName,
-        DateTime occuredAtUtc,
+        DateTime occurredAtUtc,
         string primaryKey,
         string? oldValues,
         string? newValues,
@@ -30,7 +30,7 @@ public class Audit
             UserId = userId,
             Type = auditType,
             TableName = tableName,
-            OccuredAtUtc = occuredAtUtc,
+            OccurredAtUtc = occurredAtUtc,
             PrimaryKey = primaryKey,
             OldValues = oldValues,
             NewValues = newValues,

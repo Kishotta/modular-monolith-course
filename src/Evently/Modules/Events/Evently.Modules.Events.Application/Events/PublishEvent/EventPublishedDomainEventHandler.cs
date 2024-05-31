@@ -21,7 +21,7 @@ internal sealed class EventPublishedDomainEventHandler(
         await eventBus.PublishAsync(
             new EventPublishedIntegrationEvent(
                 notification.Id,
-                notification.OccuredAtUtc,
+                notification.OccurredAtUtc,
                 result.Value.Id,
                 result.Value.Title,
                 result.Value.Description,

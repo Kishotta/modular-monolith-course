@@ -4,13 +4,13 @@ namespace Evently.Modules.Ticketing.IntegrationEvents;
 
 public sealed class OrderCreatedIntegrationEvent(
     Guid id,
-    DateTime occuredOnUtc,
+    DateTime occurredOnUtc,
     Guid orderId,
     Guid customerId,
     decimal totalPrice,
     DateTime createdAtUtc,
     List<OrderItemModel> orderItems)
-    : IntegrationEvent(id, occuredOnUtc)
+    : IntegrationEvent(id, occurredOnUtc)
 {
     public Guid OrderId { get; init; } = orderId;
     public Guid CustomerId { get; init; } = customerId;

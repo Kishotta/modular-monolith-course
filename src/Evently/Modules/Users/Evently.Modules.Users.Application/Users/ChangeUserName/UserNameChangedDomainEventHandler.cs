@@ -13,7 +13,7 @@ internal sealed class UserNameChangedDomainEventHandler (
         await eventBus.PublishAsync(
             new UserNameChangedIntegrationEvent(
                 notification.Id,
-                notification.OccuredAtUtc,
+                notification.OccurredAtUtc,
                 notification.UserId,
                 notification.FirstName,
                 notification.LastName),

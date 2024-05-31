@@ -4,11 +4,11 @@ namespace Evently.Modules.Users.IntegrationEvents;
 
 public sealed class UserNameChangedIntegrationEvent(
     Guid id,
-    DateTime occuredAtUtc,
+    DateTime occurredAtUtc,
     Guid userId,
     string firstName,
     string lastName)
-    : IntegrationEvent(id, occuredAtUtc)
+    : IntegrationEvent(id, occurredAtUtc)
 {
     public Guid UserId { get; } = userId;
     public string FirstName { get; } = firstName;

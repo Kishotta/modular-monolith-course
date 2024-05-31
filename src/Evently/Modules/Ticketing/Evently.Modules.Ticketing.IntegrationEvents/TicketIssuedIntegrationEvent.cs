@@ -4,12 +4,12 @@ namespace Evently.Modules.Ticketing.IntegrationEvents;
 
 public class TicketIssuedIntegrationEvent(
     Guid id,
-    DateTime occuredAtUtc,
+    DateTime occurredAtUtc,
     Guid ticketId,
     Guid customerId,
     Guid eventId,
     string code)
-    : IntegrationEvent(id, occuredAtUtc)
+    : IntegrationEvent(id, occurredAtUtc)
 {
     public Guid TicketId { get; init; } = ticketId;
     public Guid CustomerId { get; init; } = customerId;

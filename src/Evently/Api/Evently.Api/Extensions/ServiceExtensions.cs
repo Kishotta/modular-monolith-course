@@ -45,7 +45,7 @@ public static class ServiceExtensions
             .AddInfrastructure(
                 [
                     AttendanceModule.ConfigureConsumers,
-                    EventsModule.ConfigureConsumers,
+                    EventsModule.ConfigureConsumers(cacheConnectionString),
                     TicketingModule.ConfigureConsumers,
                     UsersModule.ConfigureConsumers
                 ],

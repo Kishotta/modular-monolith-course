@@ -2,6 +2,7 @@
     
     <ItemGroup>
       <ProjectReference Include="..\..\..\Common\Evently.Common.Presentation\Evently.Common.Presentation.csproj" />
+      <ProjectReference Include="..\..\Ticketing\Evently.Modules.Ticketing.IntegrationEvents\Evently.Modules.Ticketing.IntegrationEvents.csproj" />
       <ProjectReference Include="..\Evently.Modules.Events.Application\Evently.Modules.Events.Application.csproj" />
     </ItemGroup>
     
@@ -10,6 +11,7 @@
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
+      <PackageReference Include="MassTransit" Version="8.2.2" />
     </ItemGroup>
 
 </Project>

@@ -12,6 +12,7 @@ using Evently.Modules.Events.Infrastructure.Events;
 using Evently.Modules.Events.Infrastructure.Inbox;
 using Evently.Modules.Events.Infrastructure.Outbox;
 using Evently.Modules.Events.Infrastructure.TicketTypes;
+using Evently.Modules.Events.Presentation.Events.CancelEventSaga;
 using MassTransit;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -56,21 +57,30 @@ public static class EventsModule
             .Configure<InboxOptions>(configuration.GetSection("Events:Inbox"))
             .ConfigureOptions<ConfigureProcessInboxJob>();
 
-    public static void ConfigureConsumers(IRegistrationConfigurator registrationConfigurator) =>
-        Presentation.AssemblyReference.Assembly
-            .GetTypes()
-            .Where(type => type.IsAssignableTo(typeof(IIntegrationEventHandler)))
-            .ToList()
-            .ForEach(integrationEventHandlerType =>
-            {
-                var integrationEventType = integrationEventHandlerType
-                    .GetInterfaces()
-                    .Single(@interface => @interface.IsGenericType)
-                    .GetGenericArguments()
-                    .Single();
-                
-                registrationConfigurator.AddConsumer(typeof(IntegrationEventConsumer<>).MakeGenericType(integrationEventType));
-            });
+    public static Action<IRegistrationConfigurator> ConfigureConsumers(string redisConnectionString)
+    {
+        return registrationConfigurator =>
+        {
+            registrationConfigurator.AddSagaStateMachine<CancelEventSaga, CancelEventState>()
+                .RedisRepository();
+            
+            Presentation.AssemblyReference.Assembly
+                    .GetTypes()
+                    .Where(type => type.IsAssignableTo(typeof(IIntegrationEventHandler)))
+                    .ToList()
+                    .ForEach(integrationEventHandlerType =>
+                    {
+                        var integrationEventType = integrationEventHandlerType
+                            .GetInterfaces()
+                            .Single(@interface => @interface.IsGenericType)
+                            .GetGenericArguments()
+                            .Single();
+                        
+                        registrationConfigurator.AddConsumer(typeof(IntegrationEventConsumer<>).MakeGenericType(integrationEventType));
+                    });
+        };
+    }
+
     
     private static void AddDomainEventHandlers(this IServiceCollection services) =>
         Application.AssemblyReference.Assembly

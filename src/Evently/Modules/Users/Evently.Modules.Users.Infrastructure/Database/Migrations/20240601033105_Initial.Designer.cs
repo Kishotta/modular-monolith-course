@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Evently.Modules.Users.Infrastructure.Database.Migrations
 {
     [DbContext(typeof(UsersDbContext))]
-    [Migration("20240527213247_Initial")]
+    [Migration("20240601033105_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -41,9 +41,9 @@ namespace Evently.Modules.Users.Infrastructure.Database.Migrations
                         .HasColumnType("text")
                         .HasColumnName("new_values");
 
-                    b.Property<DateTime>("OccuredAtUtc")
+                    b.Property<DateTime>("OccurredAtUtc")
                         .HasColumnType("timestamp with time zone")
-                        .HasColumnName("occured_at_utc");
+                        .HasColumnName("occurred_at_utc");
 
                     b.Property<string>("OldValues")
                         .HasColumnType("text")
@@ -75,6 +75,59 @@ namespace Evently.Modules.Users.Infrastructure.Database.Migrations
                     b.ToTable("audit_logs", "users");
                 });
 
+            modelBuilder.Entity("Evently.Common.Infrastructure.Inbox.InboxMessage", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasMaxLength(3000)
+                        .HasColumnType("jsonb")
+                        .HasColumnName("content");
+
+                    b.Property<string>("Error")
+                        .HasColumnType("text")
+                        .HasColumnName("error");
+
+                    b.Property<DateTime>("OccurredAtUtc")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("occurred_at_utc");
+
+                    b.Property<DateTime?>("ProcessedAtUtc")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("processed_at_utc");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("type");
+
+                    b.HasKey("Id")
+                        .HasName("pk_inbox_messages");
+
+                    b.ToTable("inbox_messages", "users");
+                });
+
+            modelBuilder.Entity("Evently.Common.Infrastructure.Inbox.InboxMessageConsumer", b =>
+                {
+                    b.Property<Guid>("InboxMessageId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("inbox_message_id");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)")
+                        .HasColumnName("name");
+
+                    b.HasKey("InboxMessageId", "Name")
+                        .HasName("pk_inbox_message_consumers");
+
+                    b.ToTable("inbox_message_consumers", "users");
+                });
+
             modelBuilder.Entity("Evently.Common.Infrastructure.Outbox.OutboxMessage", b =>
                 {
                     b.Property<Guid>("Id")
@@ -92,9 +145,9 @@ namespace Evently.Modules.Users.Infrastructure.Database.Migrations
                         .HasColumnType("text")
                         .HasColumnName("error");
 
-                    b.Property<DateTime>("OccuredAtUtc")
+                    b.Property<DateTime>("OccurredAtUtc")
                         .HasColumnType("timestamp with time zone")
-                        .HasColumnName("occured_at_utc");
+                        .HasColumnName("occurred_at_utc");
 
                     b.Property<DateTime?>("ProcessedAtUtc")
                         .HasColumnType("timestamp with time zone")
@@ -109,6 +162,23 @@ namespace Evently.Modules.Users.Infrastructure.Database.Migrations
                         .HasName("pk_outbox_messages");
 
                     b.ToTable("outbox_messages", "users");
+                });
+
+            modelBuilder.Entity("Evently.Common.Infrastructure.Outbox.OutboxMessageConsumer", b =>
+                {
+                    b.Property<Guid>("OutboxMessageId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("outbox_message_id");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)")
+                        .HasColumnName("name");
+
+                    b.HasKey("OutboxMessageId", "Name")
+                        .HasName("pk_outbox_message_consumers");
+
+                    b.ToTable("outbox_message_consumers", "users");
                 });
 
             modelBuilder.Entity("Evently.Modules.Users.Domain.Users.Permission", b =>

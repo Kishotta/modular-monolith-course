@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
@@ -38,7 +39,7 @@ namespace Evently.Modules.Attendance.Infrastructure.Database.Migrations
                     user_id = table.Column<string>(type: "text", nullable: false),
                     type = table.Column<string>(type: "text", nullable: false),
                     table_name = table.Column<string>(type: "text", nullable: false),
-                    occured_at_utc = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    occurred_at_utc = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     primary_key = table.Column<string>(type: "text", nullable: false),
                     old_values = table.Column<string>(type: "text", nullable: true),
                     new_values = table.Column<string>(type: "text", nullable: true),
@@ -47,6 +48,27 @@ namespace Evently.Modules.Attendance.Infrastructure.Database.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("pk_audit_logs", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "event_statistics",
+                schema: "attendance",
+                columns: table => new
+                {
+                    event_id = table.Column<Guid>(type: "uuid", nullable: false),
+                    title = table.Column<string>(type: "text", nullable: false),
+                    description = table.Column<string>(type: "text", nullable: false),
+                    location = table.Column<string>(type: "text", nullable: false),
+                    starts_at_utc = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    ends_at_utc = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    tickets_sold = table.Column<int>(type: "integer", nullable: false),
+                    attendees_checked_in = table.Column<int>(type: "integer", nullable: false),
+                    duplicate_check_in_tickets = table.Column<List<string>>(type: "text[]", nullable: false),
+                    invalid_check_in_tickets = table.Column<List<string>>(type: "text[]", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_event_statistics", x => x.event_id);
                 });
 
             migrationBuilder.CreateTable(
@@ -67,6 +89,49 @@ namespace Evently.Modules.Attendance.Infrastructure.Database.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "inbox_message_consumers",
+                schema: "attendance",
+                columns: table => new
+                {
+                    inbox_message_id = table.Column<Guid>(type: "uuid", nullable: false),
+                    name = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_inbox_message_consumers", x => new { x.inbox_message_id, x.name });
+                });
+
+            migrationBuilder.CreateTable(
+                name: "inbox_messages",
+                schema: "attendance",
+                columns: table => new
+                {
+                    id = table.Column<Guid>(type: "uuid", nullable: false),
+                    type = table.Column<string>(type: "text", nullable: false),
+                    content = table.Column<string>(type: "jsonb", maxLength: 3000, nullable: false),
+                    occurred_at_utc = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    processed_at_utc = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    error = table.Column<string>(type: "text", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_inbox_messages", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "outbox_message_consumers",
+                schema: "attendance",
+                columns: table => new
+                {
+                    outbox_message_id = table.Column<Guid>(type: "uuid", nullable: false),
+                    name = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_outbox_message_consumers", x => new { x.outbox_message_id, x.name });
+                });
+
+            migrationBuilder.CreateTable(
                 name: "outbox_messages",
                 schema: "attendance",
                 columns: table => new
@@ -74,7 +139,7 @@ namespace Evently.Modules.Attendance.Infrastructure.Database.Migrations
                     id = table.Column<Guid>(type: "uuid", nullable: false),
                     type = table.Column<string>(type: "text", nullable: false),
                     content = table.Column<string>(type: "jsonb", maxLength: 3000, nullable: false),
-                    occured_at_utc = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    occurred_at_utc = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     processed_at_utc = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     error = table.Column<string>(type: "text", nullable: true)
                 },
@@ -138,6 +203,22 @@ namespace Evently.Modules.Attendance.Infrastructure.Database.Migrations
         {
             migrationBuilder.DropTable(
                 name: "audit_logs",
+                schema: "attendance");
+
+            migrationBuilder.DropTable(
+                name: "event_statistics",
+                schema: "attendance");
+
+            migrationBuilder.DropTable(
+                name: "inbox_message_consumers",
+                schema: "attendance");
+
+            migrationBuilder.DropTable(
+                name: "inbox_messages",
+                schema: "attendance");
+
+            migrationBuilder.DropTable(
+                name: "outbox_message_consumers",
                 schema: "attendance");
 
             migrationBuilder.DropTable(

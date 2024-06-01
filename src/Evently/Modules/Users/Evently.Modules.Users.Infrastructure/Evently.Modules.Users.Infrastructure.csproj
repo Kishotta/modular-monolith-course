@@ -12,6 +12,11 @@
     </ItemGroup>
 
     <ItemGroup>
+        <InternalsVisibleTo Include="Evently.Modules.Users.IntegrationTests" />
+        <InternalsVisibleTo Include="Evently.IntegrationTests" />
+    </ItemGroup>
+    
+    <ItemGroup>
       <PackageReference Update="SonarAnalyzer.CSharp" Version="9.25.1.91650">
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

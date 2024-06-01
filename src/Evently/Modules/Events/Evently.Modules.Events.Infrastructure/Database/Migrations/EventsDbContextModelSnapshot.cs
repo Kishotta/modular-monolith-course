@@ -38,9 +38,9 @@ namespace Evently.Modules.Events.Infrastructure.Database.Migrations
                         .HasColumnType("text")
                         .HasColumnName("new_values");
 
-                    b.Property<DateTime>("OccuredAtUtc")
+                    b.Property<DateTime>("OccurredAtUtc")
                         .HasColumnType("timestamp with time zone")
-                        .HasColumnName("occured_at_utc");
+                        .HasColumnName("occurred_at_utc");
 
                     b.Property<string>("OldValues")
                         .HasColumnType("text")
@@ -89,9 +89,9 @@ namespace Evently.Modules.Events.Infrastructure.Database.Migrations
                         .HasColumnType("text")
                         .HasColumnName("error");
 
-                    b.Property<DateTime>("OccuredAtUtc")
+                    b.Property<DateTime>("OccurredAtUtc")
                         .HasColumnType("timestamp with time zone")
-                        .HasColumnName("occured_at_utc");
+                        .HasColumnName("occurred_at_utc");
 
                     b.Property<DateTime?>("ProcessedAtUtc")
                         .HasColumnType("timestamp with time zone")
@@ -142,9 +142,9 @@ namespace Evently.Modules.Events.Infrastructure.Database.Migrations
                         .HasColumnType("text")
                         .HasColumnName("error");
 
-                    b.Property<DateTime>("OccuredAtUtc")
+                    b.Property<DateTime>("OccurredAtUtc")
                         .HasColumnType("timestamp with time zone")
-                        .HasColumnName("occured_at_utc");
+                        .HasColumnName("occurred_at_utc");
 
                     b.Property<DateTime?>("ProcessedAtUtc")
                         .HasColumnType("timestamp with time zone")

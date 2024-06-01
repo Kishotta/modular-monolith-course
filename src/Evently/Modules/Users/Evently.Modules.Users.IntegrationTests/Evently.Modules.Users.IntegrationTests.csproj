@@ -12,7 +12,11 @@
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
         <PackageReference Include="FluentAssertions" Version="6.12.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="8.0.6" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.10.0" />
+        <PackageReference Include="Testcontainers.Keycloak" Version="3.8.0" />
+        <PackageReference Include="Testcontainers.PostgreSql" Version="3.8.0" />
+        <PackageReference Include="Testcontainers.Redis" Version="3.8.0" />
         <PackageReference Include="xunit" Version="2.8.1" />
         <PackageReference Include="xunit.runner.visualstudio" Version="2.5.3"/>
     </ItemGroup>
@@ -22,7 +26,13 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Evently.Modules.Events.Domain\Evently.Modules.Events.Domain.csproj" />
+      <ProjectReference Include="..\..\..\Api\Evently.Api\Evently.Api.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Update="evently-realm-export.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
     </ItemGroup>
 
 </Project>

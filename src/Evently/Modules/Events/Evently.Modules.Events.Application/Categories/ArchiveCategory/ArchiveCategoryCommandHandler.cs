@@ -17,7 +17,10 @@ internal sealed class ArchiveCategoryCommandHandler(
         if (category.IsArchived)
             return Result.Failure<CategoryResponse>(CategoryErrors.AlreadyArchived);
         
-        category.Archive();
+        var result = category.Archive();
+        if (result.IsFailure)
+            return Result.Failure<CategoryResponse>(result.Error);
+        
         await unitOfWork.SaveChangesAsync(cancellationToken);
 
         return (CategoryResponse)category;

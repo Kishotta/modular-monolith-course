@@ -2,5 +2,5 @@ namespace Evently.Modules.Events.Domain.Events;
 
 public sealed class EventPublishedDomainEvent(Guid eventId) : DomainEvent
 {
-    public Guid EventId { get; } = eventId;
+    public Guid EventId { get; init; } = eventId;
 }

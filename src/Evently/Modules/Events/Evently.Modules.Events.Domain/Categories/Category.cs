@@ -25,11 +25,16 @@ public class Category : Entity
         return category;
     }
 
-    public void Archive()
+    public Result Archive()
     {
+        if (IsArchived)
+            return Result.Failure(CategoryErrors.AlreadyArchived);
+        
         IsArchived = true;
         
         RaiseDomainEvent(new CategoryArchivedDomainEvent(Id));
+
+        return Result.Success();
     }
 
     public void ChangeName(string name)

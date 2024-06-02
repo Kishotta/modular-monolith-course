@@ -36,9 +36,9 @@ public class IntegrationTestWebApplicationFactory : WebApplicationFactory<Progra
         Environment.SetEnvironmentVariable("ConnectionStrings:Cache", _redisContainer.GetConnectionString());
 
         var keycloakAddress = _keycloakContainer.GetBaseAddress();
-        var keycloakRealmUrl = $"{keycloakAddress}/realms/evently";
+        var keycloakRealmUrl = $"{keycloakAddress}realms/evently";
         
-        Environment.SetEnvironmentVariable("Authentication:MetadataAddress", $"{keycloakAddress}/realms/master/.well-known/openid-configuration");
+        Environment.SetEnvironmentVariable("Authentication:MetadataAddress", $"{keycloakRealmUrl}/.well-known/openid-configuration");
         Environment.SetEnvironmentVariable("Authentication:TokenValidationParameters:ValidIssuer", keycloakRealmUrl);
         
         builder.ConfigureTestServices(services =>

@@ -1,15 +1,8 @@
 namespace Evently.Common.Domain;
 
-public sealed record ValidationError : Error
+public sealed record ValidationError(Error[] Errors) 
+    : Error("General.Validation", "One or more validation errors occurred", ErrorType.Validation)
 {
-    public Error[] Errors { get; }
-    
-    public ValidationError(Error[] errors) 
-        : base("General.Validation", "One or more validation errors occurred", ErrorType.Validation)
-    {
-        Errors = errors;
-    }
-    
     public static ValidationError FromResults(IEnumerable<Result> results) =>
         new(results
             .Where(result => result.IsFailure)

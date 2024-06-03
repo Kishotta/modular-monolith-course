@@ -2,15 +2,15 @@ namespace Evently.Common.Infrastructure.Auditing;
 
 public class Audit
 {
-    public Guid Id { get; set; }
-    public string UserId { get; set; } = string.Empty;
-    public string Type { get; set; } = string.Empty;
-    public string TableName { get; set; } = string.Empty;
-    public DateTime OccurredAtUtc { get; set; }
-    public string PrimaryKey { get; set; } = string.Empty;
-    public string? OldValues { get; set; }
-    public string? NewValues { get; set; }
-    public string? AffectedColumns { get; set; }
+    public Guid Id { get; init; }
+    public string UserId { get; init; } = string.Empty;
+    public string Type { get; init; } = string.Empty;
+    public string TableName { get; init; } = string.Empty;
+    public DateTime OccurredAtUtc { get; init; }
+    public string PrimaryKey { get; init; } = string.Empty;
+    public string? OldValues { get; init; }
+    public string? NewValues { get; init; }
+    public string? AffectedColumns { get; init; }
 
     private Audit() { }
     

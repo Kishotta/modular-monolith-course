@@ -1,9 +1,7 @@
 using Evently.Common.Application.Authorization;
 using Evently.Common.Application.EventBus;
 using Evently.Common.Application.Messaging;
-using Evently.Common.Infrastructure.Auditing;
 using Evently.Common.Infrastructure.Database;
-using Evently.Common.Infrastructure.Outbox;
 using Evently.Common.Presentation.Endpoints;
 using Evently.Modules.Users.Application.Abstractions.Data;
 using Evently.Modules.Users.Application.Abstractions.Identity;
@@ -15,8 +13,6 @@ using Evently.Modules.Users.Infrastructure.Inbox;
 using Evently.Modules.Users.Infrastructure.Outbox;
 using Evently.Modules.Users.Infrastructure.Users;
 using MassTransit;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;

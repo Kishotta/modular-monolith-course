@@ -110,7 +110,7 @@ internal sealed class ProcessInboxJob(
             sql, 
             new
             {
-                Id = inboxMessage.Id,
+                inboxMessage.Id,
                 ProcessedAtUtc = dateTimeProvider.UtcNow,
                 Error = exception?.Message
             }, transaction: transaction);

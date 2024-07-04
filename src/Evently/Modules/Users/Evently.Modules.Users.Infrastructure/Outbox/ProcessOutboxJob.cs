@@ -2,11 +2,9 @@ using System.Data;
 using Dapper;
 using Evently.Common.Application.Clock;
 using Evently.Common.Application.Data;
-using Evently.Common.Application.Messaging;
 using Evently.Common.Domain;
 using Evently.Common.Infrastructure.Outbox;
 using Evently.Common.Infrastructure.Serialization;
-using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -112,7 +110,7 @@ internal sealed class ProcessOutboxJob(
             sql, 
             new
             {
-                Id = outboxMessage.Id,
+                outboxMessage.Id,
                 ProcessedAtUtc = dateTimeProvider.UtcNow,
                 Error = exception?.Message
             }, transaction: transaction);

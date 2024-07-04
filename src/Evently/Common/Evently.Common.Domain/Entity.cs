@@ -6,8 +6,6 @@ public abstract class Entity
     
     private readonly List<IDomainEvent> _domainEvents = [];
 
-    protected Entity() { }
-    
     public void ClearDomainEvents()
     {
         _domainEvents.Clear();

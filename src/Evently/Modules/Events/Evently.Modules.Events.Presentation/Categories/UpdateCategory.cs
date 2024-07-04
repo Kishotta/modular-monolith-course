@@ -12,7 +12,7 @@ internal class UpdateCategory : IEndpoint
 
                 return result.Match(
                     Results.Ok,
-                    Common.Presentation.ApiResults.ApiResults.Problem);
+                    ApiResults.Problem);
             })
             .RequireAuthorization()
             .WithName(nameof(UpdateCategory))

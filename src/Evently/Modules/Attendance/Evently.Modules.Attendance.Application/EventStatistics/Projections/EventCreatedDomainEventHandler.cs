@@ -1,7 +1,6 @@
 using Dapper;
 using Evently.Common.Application.Data;
 using Evently.Common.Application.Messaging;
-using Evently.Modules.Attendance.Domain.Attendees;
 using Evently.Modules.Attendance.Domain.Events;
 
 namespace Evently.Modules.Attendance.Application.EventStatistics.Projections;
@@ -47,8 +46,8 @@ internal sealed class EventCreatedDomainEventHandler(IDbConnectionFactory dbConn
                 domainEvent.Title,
                 domainEvent.Description,
                 domainEvent.Location,
-                StartsAtUtc = domainEvent.StartsAtUtc,
-                EndsAtUtc = domainEvent.EndsAtUtc,
+                domainEvent.StartsAtUtc,
+                domainEvent.EndsAtUtc,
                 TicketsSold = 0,
                 AttendeesCheckedIn = 0,
                 DuplicateCheckInTickets = Array.Empty<string>(),

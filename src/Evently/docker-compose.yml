@@ -6,10 +6,10 @@ services:
       context: .
       dockerfile: ./Web/Evently.Web/Dockerfile
     ports:
-      - "3000:8080"
+      - "3000:80"
   
   evently.api:
-    image: ${DOCKER_REGISTRY-}eventlyapi
+#    image: ${DOCKER_REGISTRY-}eventlyapi
     container_name: Evently.Api
     build:
       context: .
@@ -21,6 +21,8 @@ services:
       evently.database:
         condition: service_healthy
       evently.redis:
+        condition: service_healthy
+      evently.identity:
         condition: service_healthy
   
   evently.database:
@@ -57,11 +59,17 @@ services:
       - KC_HEALTH_ENABLED=true
       - KEYCLOAK_ADMIN=admin
       - KEYCLOAK_ADMIN_PASSWORD=admin
+    healthcheck:
+      test: [
+        "CMD-SHELL",
+        'exec 3<>/dev/tcp/localhost/8080; echo -e "GET /health/ready HTTP/1.1\nhost: localhost:8080\n" >&3; timeout --preserve-status 1 cat <&3 | grep -m 1 status | grep -m 1 UP; ERROR=$?; exec 3<&-; exec 3>&-; exit $ERROR'
+      ]
     volumes:
       - ./.containers/identity:/opt/keycloak/data
       - ./.files:/opt/keycloak/data/import
     ports:
       - 18080:8080
+      - 18081:9000
   
   evently.seq:
     image: datalust/seq:latest

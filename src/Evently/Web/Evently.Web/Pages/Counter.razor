@@ -1,0 +1,22 @@
+﻿@page "/counter"
+
+<PageTitle>Counter</PageTitle>
+
+<MudStack Spacing="4" Class="mt-4">
+    <MudText Typo="Typo.h4">Counter</MudText>
+
+    <MudPaper Class="px-6 py-4">
+        <MudText Typo="Typo.body1">Current count: @_currentCount</MudText>
+        <MudButton Color="Color.Primary" OnClick="@(_ => IncrementCount())">Increment</MudButton>
+    </MudPaper>
+</MudStack>
+
+@code {
+    private int _currentCount;
+
+    private void IncrementCount()
+    {
+        _currentCount++;
+    }
+
+}

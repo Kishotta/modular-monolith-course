@@ -1,0 +1,40 @@
+﻿@inherits LayoutComponentBase
+
+@* Required *@
+<MudThemeProvider DefaultScrollbar="true" @bind-IsDarkMode="@_isDarkMode" Theme="_theme"/>
+<MudPopoverProvider />
+
+@* Needed for dialogs *@
+<MudDialogProvider />
+
+@* Needed for snackbars *@
+<MudSnackbarProvider />
+
+<MudLayout>
+    <MudAppBar Elevation="0">
+        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@(_ => ToggleDrawer())"/>
+        <MudText Typo="Typo.h4">Evently</MudText>
+        <MudSpacer />
+        <MudToggleIconButton @bind-Toggled="_isDarkMode"
+                             Color="Color.Inherit"
+                             Icon="@Icons.Material.Filled.LightMode"
+                             ToggledIcon="@Icons.Material.Filled.DarkMode"/>
+    </MudAppBar>
+    <MudDrawer ClipMode="DrawerClipMode.Always" @bind-Open="@_drawerOpen" Elevation="0" Variant="DrawerVariant.Mini" OpenMiniOnHover="true">
+        <NavMenu/>
+    </MudDrawer>
+    <MudMainContent>
+        <MudContainer MaxWidth="MaxWidth.Medium">
+            @Body
+        </MudContainer>
+    </MudMainContent>
+</MudLayout>
+
+@code {
+    bool _drawerOpen = true;
+    
+    private void ToggleDrawer() => _drawerOpen = !_drawerOpen;
+
+    private MudTheme _theme = new();
+    private bool _isDarkMode = true;
+}

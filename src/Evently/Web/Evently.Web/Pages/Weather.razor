@@ -1,0 +1,40 @@
+﻿@page "/weather"
+@inject HttpClient Http
+
+<PageTitle>Weather</PageTitle>
+
+<MudStack Spacing="4" Class="mt-4">
+    <MudText Typo="Typo.h4">Weather</MudText>
+
+    <MudText Typo="Typo.body1">This component demonstrates fetching data from the server.</MudText>
+
+    <MudDataGrid Items="@_forecasts" SortMode="SortMode.Multiple" ColumnResizeMode="ResizeMode.Column" DragDropColumnReordering="true">
+        <Columns>
+            <PropertyColumn Property="x => x.Date.ToShortDateString()" Title="Date" SortBy="x => x.Date" />
+            <PropertyColumn Property="x => x.TemperatureC" Title="Temp. (C)" SortBy="x => x.TemperatureC" />
+            <PropertyColumn Property="x => x.TemperatureF" Title="Temp. (F)" SortBy="x => x.TemperatureF" />
+            <PropertyColumn Property="x => x.Summary" Title="Summary" Sortable="false" />
+        </Columns>
+    </MudDataGrid>
+</MudStack>
+
+
+@code {
+    private WeatherForecast[]? _forecasts;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("sample-data/weather.json");
+    }
+
+    public class WeatherForecast
+    {
+        public DateOnly Date { get; set; }
+
+        public int TemperatureC { get; set; }
+
+        public string? Summary { get; set; }
+
+        public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
+    }
+}

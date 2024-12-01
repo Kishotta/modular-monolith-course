@@ -10,9 +10,8 @@ internal sealed class UpdateCategoryCommandHandler(
     public async Task<Result<CategoryResponse>> Handle(UpdateCategoryCommand request, CancellationToken cancellationToken)
     {
         var category = await categories.GetAsync(request.CategoryId, cancellationToken);
-
         if (category is null)
-            return Result.Failure<CategoryResponse>(CategoryErrors.NotFound(request.CategoryId));
+            return CategoryErrors.NotFound(request.CategoryId);
 
         category.ChangeName(request.Name);
         await unitOfWork.SaveChangesAsync(cancellationToken);

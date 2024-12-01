@@ -14,7 +14,7 @@ internal sealed class ChangeAttendeeNameCommandHandler(
     {
         var attendee = await attendeeRepository.GetAsync(request.AttendeeId, cancellationToken);
         if (attendee is null)
-            return Result.Failure(AttendeeErrors.NotFound(request.AttendeeId));
+            return AttendeeErrors.NotFound(request.AttendeeId);
 
         attendee.ChangeName(request.FirstName, request.LastName);
 

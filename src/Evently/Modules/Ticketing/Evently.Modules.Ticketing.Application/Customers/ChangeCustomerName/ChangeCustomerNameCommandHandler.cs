@@ -12,7 +12,7 @@ internal sealed class ChangeCustomerNameCommandHandler(
     {
         var customer = await customers.GetAsync(request.CustomerId, cancellationToken);
         if (customer is null)
-            return Result.Failure(CustomerErrors.NotFound(request.CustomerId));
+            return CustomerErrors.NotFound(request.CustomerId);
         
         customer.ChangeName(request.FirstName, request.LastName);
         await unitOfWork.SaveChangesAsync(cancellationToken);

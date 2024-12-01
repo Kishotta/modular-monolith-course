@@ -37,10 +37,10 @@ public sealed class Payment : Entity
     public Result Refund(decimal refundAmount)
     {
         if (AmountRefunded == Amount)
-            return Result.Failure(PaymentErrors.AlreadyRefunded);
+            return PaymentErrors.AlreadyRefunded;
 
         if (AmountRefunded + refundAmount > Amount)
-            return Result.Failure(PaymentErrors.NotEnoughFunds);
+            return PaymentErrors.NotEnoughFunds;
         
         AmountRefunded += refundAmount;
         

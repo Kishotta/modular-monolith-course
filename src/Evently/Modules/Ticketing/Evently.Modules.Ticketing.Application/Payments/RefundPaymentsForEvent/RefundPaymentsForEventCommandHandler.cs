@@ -16,7 +16,7 @@ internal sealed class RefundPaymentsForEventCommandHandler(
 
         var @event = await eventRepository.GetAsync(request.EventId, cancellationToken);
         if (@event is null)
-            return Result.Failure(EventErrors.NotFound(request.EventId));
+            return EventErrors.NotFound(request.EventId);
 
         var payments = await paymentRepository.GetForEventAsync(@event, cancellationToken);
 

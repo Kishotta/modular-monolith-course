@@ -20,11 +20,11 @@ internal sealed class CheckInAttendeeCommandCommandHandler(
     {
         var attendee = await attendeeRepository.GetAsync(request.AttendeeId, cancellationToken);
         if (attendee is null)
-            return Result.Failure(AttendeeErrors.NotFound(request.AttendeeId));
+            return AttendeeErrors.NotFound(request.AttendeeId);
 
         var ticket = await ticketRepository.GetAsync(request.TicketId, cancellationToken);
         if (ticket is null)
-            return Result.Failure(TicketErrors.NotFound);
+            return TicketErrors.NotFound;
 
         var result = attendee.CheckIn(ticket, dateTimeProvider.UtcNow);
 

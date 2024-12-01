@@ -25,17 +25,17 @@ internal sealed class CreateOrderCommandHandler(
         
         var customer = await customers.GetAsync(request.CustomerId, cancellationToken);
         if (customer is null)
-            return Result.Failure(CustomerErrors.NotFound(request.CustomerId));
+            return CustomerErrors.NotFound(request.CustomerId);
 
         var order = Order.Create(customer);
 
         var cart = await cartService.GetAsync(customer.Id, cancellationToken);
         if (cart.Items.Count == 0)
-            return Result.Failure(CartErrors.Empty);
+            return CartErrors.Empty;
 
         var result = await AddCartItemsToOrder(cart, order, cancellationToken);
         if (result.IsFailure)
-            return Result.Failure(result.Error);
+            return result.Error;
 
         var paymentResponse = await paymentService.ChargeAsync(order.TotalPrice, order.Currency);
 
@@ -62,12 +62,11 @@ internal sealed class CreateOrderCommandHandler(
         {
             var ticketType = await ticketTypes.GetWithLockAsync(cartItem.TicketTypeId, cancellationToken);
             if (ticketType is null)
-                return Result.Failure(TicketTypeErrors.NotFound(cartItem.TicketTypeId));
+                return TicketTypeErrors.NotFound(cartItem.TicketTypeId);
 
             var result = ticketType.UpdateQuantity(cartItem.Quantity);
-            
             if (result.IsFailure)
-                return Result.Failure(result.Error);
+                return result.Error;
             
             order.AddItem(ticketType, cartItem.Quantity, cartItem.Price, cartItem.Currency);
         }

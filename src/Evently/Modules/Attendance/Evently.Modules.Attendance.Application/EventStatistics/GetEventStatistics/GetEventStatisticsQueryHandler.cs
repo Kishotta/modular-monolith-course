@@ -32,7 +32,7 @@ internal sealed class GetEventStatisticsQueryHandler(IDbConnectionFactory dbConn
         
         var eventStatistics = await connection.QuerySingleOrDefaultAsync<EventStatisticsResponse>(sql, request);
         if (eventStatistics is null)
-            return Result.Failure<EventStatisticsResponse>(EventErrors.NotFound(request.EventId));
+            return EventErrors.NotFound(request.EventId);
 
         return eventStatistics;
     }

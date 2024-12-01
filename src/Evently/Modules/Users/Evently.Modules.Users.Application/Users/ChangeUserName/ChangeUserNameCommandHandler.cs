@@ -13,7 +13,7 @@ internal sealed class ChangeUserNameCommandHandler(
         var user = await users.GetAsync(request.UserId, cancellationToken);
 
         if (user is null)
-            return Result.Failure<UserResponse>(UserErrors.NotFound(request.UserId));
+            return UserErrors.NotFound(request.UserId);
         
         user.ChangeName(request.FirstName, request.LastName);
         

@@ -8,7 +8,9 @@ internal sealed class GetCustomerQueryHandler(ICustomerRepository customers)
     public async Task<Result<Customer>> Handle(GetCustomerQuery query, CancellationToken cancellationToken)
     {
         var customer = await customers.GetAsync(query.CustomerId, cancellationToken);
-
-        return customer ?? Result.Failure<Customer>(CustomerErrors.NotFound(query.CustomerId));
+        if (customer is null)
+            return CustomerErrors.NotFound(query.CustomerId);
+        
+        return customer;
     }
 }

@@ -20,7 +20,7 @@ internal sealed class RegisterUserCommandHandler(
                 request.FirstName,
                 request.LastName), cancellationToken);
         if (result.IsFailure)
-            return Result.Failure<UserResponse>(result.Error);
+            return result.Error;
         
         var user = User.Create(request.Email, request.FirstName, request.LastName, result.Value);
         

@@ -12,11 +12,11 @@ internal sealed class AddItemToCartCommandHandler(
     {
         var customer = await customers.GetAsync(command.CustomerId, cancellationToken);
         if (customer is null)
-            return Result.Failure(CustomerErrors.NotFound(command.CustomerId));
+            return CustomerErrors.NotFound(command.CustomerId);
         
         var ticketType = await ticketTypes.GetAsync(command.TicketTypeId, cancellationToken);
         if (ticketType is null)
-            return Result.Failure(TicketTypeErrors.NotFound(command.TicketTypeId));
+            return TicketTypeErrors.NotFound(command.TicketTypeId);
 
         var cartItem = new CartItem
         {

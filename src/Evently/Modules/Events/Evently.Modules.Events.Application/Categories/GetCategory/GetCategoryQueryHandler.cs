@@ -24,7 +24,7 @@ internal sealed class GetCategoryQueryHandler(IDbConnectionFactory dbConnectionF
         var category = await dbConnection.QuerySingleOrDefaultAsync<CategoryResponse>(sql, request);
 
         if (category is null)
-            return Result.Failure<CategoryResponse>(CategoryErrors.NotFound(request.CategoryId));
+            return CategoryErrors.NotFound(request.CategoryId);
 
         return category;
     }

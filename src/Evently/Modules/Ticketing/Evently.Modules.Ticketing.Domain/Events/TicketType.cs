@@ -45,7 +45,7 @@ public sealed class TicketType : Entity
     public Result UpdateQuantity(decimal quantity)
     {
         if (AvailableQuantity < quantity)
-            return Result.Failure(TicketTypeErrors.NotEnoughQuantity(AvailableQuantity));
+            return TicketTypeErrors.NotEnoughQuantity(AvailableQuantity);
 
         AvailableQuantity -= quantity;
         

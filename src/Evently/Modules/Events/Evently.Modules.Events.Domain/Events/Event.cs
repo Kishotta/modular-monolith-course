@@ -26,7 +26,7 @@ public sealed class Event : Entity
         DateTime? endsAtUtc)
     {
         if (endsAtUtc.HasValue && endsAtUtc < startsAtUtc)
-            return Result.Failure<Event>(EventErrors.EndDatePrecedesStartDate);
+            return EventErrors.EndDatePrecedesStartDate;
         
         var @event = new Event
         {
@@ -48,7 +48,7 @@ public sealed class Event : Entity
     public Result Publish()
     {
         if (Status != EventStatus.Draft)
-            return Result.Failure(EventErrors.NotDraft);
+            return EventErrors.NotDraft;
 
         Status = EventStatus.Published;
         
@@ -59,8 +59,8 @@ public sealed class Event : Entity
     
     public Result Reschedule(DateTime startsAtUtc, DateTime? endsAtUtc)
     {
-        if (endsAtUtc.HasValue && endsAtUtc < startsAtUtc)
-            return Result.Failure(EventErrors.EndDatePrecedesStartDate);
+        if (endsAtUtc < startsAtUtc)
+            return EventErrors.EndDatePrecedesStartDate;
         
         StartsAtUtc = startsAtUtc;
         EndsAtUtc = endsAtUtc;
@@ -73,10 +73,10 @@ public sealed class Event : Entity
     public Result Cancel(DateTime utcNow)
     {
         if (Status == EventStatus.Cancelled)
-            return Result.Failure(EventErrors.AlreadyCancelled);
+            return EventErrors.AlreadyCancelled;
         
         if (StartsAtUtc < utcNow)
-            return Result.Failure(EventErrors.AlreadyStarted);
+            return EventErrors.AlreadyStarted;
         
         Status = EventStatus.Cancelled;
         

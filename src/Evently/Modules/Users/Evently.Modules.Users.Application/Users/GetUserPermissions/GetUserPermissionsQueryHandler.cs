@@ -26,7 +26,7 @@ internal sealed class GetUserPermissionsQueryHandler(IDbConnectionFactory dbConn
 
         var permissions = (await connection.QueryAsync<UserPermission>(sql, request)).ToList();
         if (permissions.Count == 0)
-            return Result.Failure<PermissionResponse>(UserErrors.NotFound(request.IdentityId));
+            return UserErrors.NotFound(request.IdentityId);
 
         return new PermissionResponse(permissions[0].UserId,
             permissions.Select(userPermission => userPermission.Permission).ToHashSet());

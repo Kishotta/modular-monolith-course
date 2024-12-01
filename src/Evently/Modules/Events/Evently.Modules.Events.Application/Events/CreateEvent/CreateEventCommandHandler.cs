@@ -14,12 +14,11 @@ internal sealed class CreateEventCommandHandler(
     public async Task<Result<EventResponse>> Handle(CreateEventCommand request, CancellationToken cancellationToken)
     {
         if (request.StartsAtUtc < dateTimeProvider.UtcNow)
-            return Result.Failure<EventResponse>(EventErrors.StartDateInPast);
+            return EventErrors.StartDateInPast;
         
         var category = await categories.GetAsync(request.CategoryId, cancellationToken);
-        
         if (category is null)
-            return Result.Failure<EventResponse>(CategoryErrors.NotFound(request.CategoryId));
+            return CategoryErrors.NotFound(request.CategoryId);
         
         var result = Event.CreateDraft(
             category,
@@ -30,11 +29,11 @@ internal sealed class CreateEventCommandHandler(
             request.EndsAtUtc);
 
         if (result.IsFailure)
-            return Result.Failure<EventResponse>(result.Error);
+            return result.Error;
         
         events.Insert(result.Value);
         await unitOfWork.SaveChangesAsync(cancellationToken);
 
-        return Result.Success<EventResponse>(result.Value);
+        return (EventResponse)result.Value;
     }
 }

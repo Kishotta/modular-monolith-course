@@ -48,7 +48,7 @@ public sealed class Order : Entity
     public Result IssueTickets()
     {
         if (TicketsIssued)
-            return Result.Failure(OrderErrors.TicketsAlreadyIssued);
+            return OrderErrors.TicketsAlreadyIssued;
 
         TicketsIssued = true;
         

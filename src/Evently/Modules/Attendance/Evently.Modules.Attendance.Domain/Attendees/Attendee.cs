@@ -36,13 +36,13 @@ public sealed class Attendee : Entity
         if (Id != ticket.AttendeeId)
         {
             RaiseDomainEvent(new InvalidCheckInAttemptedDomainEvent(Id, ticket.EventId, ticket.Id, ticket.Code));
-            return Result.Failure(TicketErrors.InvalidCheckIn);
+            return TicketErrors.InvalidCheckIn;
         }
 
         if (ticket.UsedAtUtc.HasValue)
         {
             RaiseDomainEvent(new InvalidCheckInAttemptedDomainEvent(Id, ticket.EventId, ticket.Id, ticket.Code));
-            return Result.Failure(TicketErrors.DuplicateCheckIn);
+            return TicketErrors.DuplicateCheckIn;
         }
         
         ticket.MarkAsUsed(checkInTime);

@@ -28,7 +28,7 @@ public class Category : Entity
     public Result Archive()
     {
         if (IsArchived)
-            return Result.Failure(CategoryErrors.AlreadyArchived);
+            return CategoryErrors.AlreadyArchived;
         
         IsArchived = true;
         

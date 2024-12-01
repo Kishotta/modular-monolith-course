@@ -27,7 +27,7 @@ internal sealed class GetUserQueryHandler(
         var user = await dbConnection.QuerySingleOrDefaultAsync<UserResponse>(sql, request);
 
         if (user is null)
-            return Result.Failure<UserResponse>(UserErrors.NotFound(request.UserId));
+            return UserErrors.NotFound(request.UserId);
 
         return user;
     }

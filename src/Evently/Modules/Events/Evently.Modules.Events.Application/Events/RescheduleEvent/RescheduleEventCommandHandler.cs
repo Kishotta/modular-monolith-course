@@ -11,17 +11,17 @@ internal sealed class RescheduleEventCommandHandler(
     public async Task<Result<EventResponse>> Handle(RescheduleEventCommand request, CancellationToken cancellationToken)
     {
         if (request.StartsAtUtc < dateTimeProvider.UtcNow)
-            return Result.Failure<EventResponse>(EventErrors.StartDateInPast);
+            return EventErrors.StartDateInPast;
         
         var @event = await events.GetAsync(request.EventId, cancellationToken);
 
         if (@event is null)
-            return Result.Failure<EventResponse>(EventErrors.NotFound(request.EventId));
+            return EventErrors.NotFound(request.EventId);
 
         var result = @event.Reschedule(request.StartsAtUtc, request.EndsAtUtc);
 
         if (result.IsFailure)
-            return Result.Failure<EventResponse>(result.Error);
+            return result.Error;
 
         await unitOfWork.SaveChangesAsync(cancellationToken);
         

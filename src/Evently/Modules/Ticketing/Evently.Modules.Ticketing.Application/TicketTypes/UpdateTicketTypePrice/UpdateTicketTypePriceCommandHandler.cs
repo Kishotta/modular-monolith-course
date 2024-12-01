@@ -12,7 +12,7 @@ internal sealed class UpdateTicketTypePriceCommandHandler(
     {
         var ticketType = await ticketTypeRepository.GetAsync(request.TicketTypeId, cancellationToken);
         if (ticketType is null)
-            return Result.Failure(TicketTypeErrors.NotFound(request.TicketTypeId));
+            return TicketTypeErrors.NotFound(request.TicketTypeId);
 
         ticketType.UpdatePrice(request.Price);
 

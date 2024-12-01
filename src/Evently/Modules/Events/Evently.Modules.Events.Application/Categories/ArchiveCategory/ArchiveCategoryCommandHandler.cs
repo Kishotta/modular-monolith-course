@@ -12,14 +12,14 @@ internal sealed class ArchiveCategoryCommandHandler(
         var category = await categories.GetAsync(request.CategoryId, cancellationToken);
 
         if (category is null)
-            return Result.Failure<CategoryResponse>(CategoryErrors.NotFound(request.CategoryId));
+            return CategoryErrors.NotFound(request.CategoryId);
         
         if (category.IsArchived)
-            return Result.Failure<CategoryResponse>(CategoryErrors.AlreadyArchived);
+            return CategoryErrors.AlreadyArchived;
         
         var result = category.Archive();
         if (result.IsFailure)
-            return Result.Failure<CategoryResponse>(result.Error);
+            return result.Error;
         
         await unitOfWork.SaveChangesAsync(cancellationToken);
 

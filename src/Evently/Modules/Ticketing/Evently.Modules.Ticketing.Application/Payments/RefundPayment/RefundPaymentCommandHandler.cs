@@ -12,12 +12,12 @@ internal sealed class RefundPaymentCommandHandler(
     {
         var payment = await paymentRepository.GetAsync(request.PaymentId, cancellationToken);
         if (payment is null)
-            return Result.Failure(PaymentErrors.NotFound(request.PaymentId));
+            return PaymentErrors.NotFound(request.PaymentId);
 
         var result = payment.Refund(request.Amount);
 
         if (result.IsFailure)
-            return Result.Failure(result.Error);
+            return result.Error;
 
         await unitOfWork.SaveChangesAsync(cancellationToken);
 

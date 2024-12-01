@@ -12,7 +12,7 @@ internal sealed class CancelEventCommandHandler(
     {
         var @event = await events.GetAsync(request.EventId, cancellationToken);
         if (@event is null)
-            return Result.Failure(EventErrors.NotFound(request.EventId));
+            return EventErrors.NotFound(request.EventId);
         
         @event.Cancel();
         await unitOfWork.SaveChangesAsync(cancellationToken);

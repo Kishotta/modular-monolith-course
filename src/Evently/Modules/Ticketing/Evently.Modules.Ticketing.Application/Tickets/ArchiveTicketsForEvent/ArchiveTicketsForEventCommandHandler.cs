@@ -16,7 +16,7 @@ internal sealed class ArchiveTicketsForEventCommandHandler(
 
         var @event = await events.GetAsync(request.EventId, cancellationToken);
         if (@event is null)
-            return Result.Failure(EventErrors.NotFound(request.EventId));
+            return EventErrors.NotFound(request.EventId);
 
         var eventTickets = await tickets.GetForEventAsync(@event, cancellationToken);
 

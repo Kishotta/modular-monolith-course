@@ -49,7 +49,7 @@ internal sealed class GetOrderQueryHandler(IDbConnectionFactory dbConnectionFact
             splitOn: nameof(OrderItemResponse.OrderItemId));
 
         return !ordersDictionary.TryGetValue(request.OrderId, out var orderResponse) ? 
-            Result.Failure<OrderResponse>(OrderErrors.NotFound(request.OrderId)) : 
+            OrderErrors.NotFound(request.OrderId) : 
             orderResponse;
     }
 }

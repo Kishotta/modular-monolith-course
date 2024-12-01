@@ -13,11 +13,11 @@ internal sealed class RemoveItemFromCartCommandHandler(
     {
         var customer = await customers.GetAsync(request.CustomerId, cancellationToken);
         if (customer is null)
-            return Result.Failure(CustomerErrors.NotFound(request.CustomerId));
+            return CustomerErrors.NotFound(request.CustomerId);
 
         var ticketType = await ticketTypes.GetAsync(request.TicketTypeId, cancellationToken);
         if (ticketType is null)
-            return Result.Failure(TicketTypeErrors.NotFound(request.TicketTypeId));
+            return TicketTypeErrors.NotFound(request.TicketTypeId);
 
         await cartService.RemoveItemAsync(customer.Id, ticketType.Id, cancellationToken);
 

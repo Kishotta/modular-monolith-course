@@ -33,7 +33,7 @@ internal sealed class KeyCloakIdentityProviderService(
         {
             logger.LogError(exception, "User registration failed");
 
-            return Result.Failure<string>(IdentityProviderErrors.EmailIsNotUnique);
+            return IdentityProviderErrors.EmailIsNotUnique;
         }
     }
 }

@@ -4,9 +4,9 @@ using Evently.Common.Application.Data;
 namespace Evently.Modules.Events.Application.Events.GetEvents;
 
 internal sealed class GetEventsQueryHandler(IDbConnectionFactory dbConnectionFactory)
-    : IQueryHandler<GetEventsQuery, IReadOnlyCollection<EventResponse>>
+    : IPaginatedQueryHandler<GetEventsQuery, IReadOnlyCollection<EventResponse>>
 {
-    public async Task<Result<IReadOnlyCollection<EventResponse>>> Handle(GetEventsQuery request, CancellationToken cancellationToken)
+    public async Task<Result<PaginatedResponse<IReadOnlyCollection<EventResponse>>>> Handle(GetEventsQuery request, CancellationToken cancellationToken)
     {
         await using var dbConnection = await dbConnectionFactory.OpenConnectionAsync();
 
@@ -21,10 +21,19 @@ internal sealed class GetEventsQueryHandler(IDbConnectionFactory dbConnectionFac
                 starts_at_utc AS {nameof(EventResponse.StartsAtUtc)},
                 ends_at_utc AS {nameof(EventResponse.EndsAtUtc)}
              FROM events.events
+             LIMIT @Limit
+             OFFSET @Offset
              """;
 
-        var events = (await dbConnection.QueryAsync<EventResponse>(sql)).AsList();
+        var events = (await dbConnection.QueryAsync<EventResponse>(sql, request.PaginationFilter)).AsList();
+        
+        const string countSql = "SELECT COUNT(*) FROM events.events";
+        var totalCount = await dbConnection.ExecuteScalarAsync<int>(countSql);
+        
 
-        return events;
+        return PaginatedResponse<IReadOnlyCollection<EventResponse>>.Create(
+            events,
+            request,
+            totalCount);
     }
 }
